@@ -1,0 +1,11 @@
+.project
+.classpath
+.settings
+.springBeans
+target/
+bin/
+jetty-env.xml
+webdefault.xml
+log4j.xml
+.externalToolBuilders
+dev.properties
