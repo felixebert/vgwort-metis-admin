@@ -10,6 +10,7 @@
 	<modules>
 		<module>pixelserver</module>
 		<module>pixelfetcher</module>
+		<module>admin</module>
 	</modules>
 
 	<name>METIS Admin</name>
