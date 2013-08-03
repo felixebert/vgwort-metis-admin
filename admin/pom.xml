@@ -13,9 +13,14 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-web</artifactId>
-			<version>${org.springframework.version}</version>
+			<groupId>de.ifcore.metis</groupId>
+			<artifactId>metis-admin-pixelserver</artifactId>
+			<version>0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>de.ifcore.metis</groupId>
+			<artifactId>metis-admin-pixelfetcher</artifactId>
+			<version>0.1</version>
 		</dependency>
 	</dependencies>
 </project>
