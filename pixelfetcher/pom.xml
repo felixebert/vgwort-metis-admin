@@ -12,6 +12,11 @@
 	<packaging>jar</packaging>
 
 	<dependencies>
+	    <dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>de.ifcore.metis</groupId>
 			<artifactId>metis-client</artifactId>
