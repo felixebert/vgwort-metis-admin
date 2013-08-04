@@ -20,10 +20,10 @@ public abstract class IntegrationTest
 	protected SessionFactory sessionFactory;
 
 	@Autowired
-	private PixelDao pixelDao;
+	protected PixelDao pixelDao;
 
 	@Autowired
-	private PixelLinkDao pixelLinkDao;
+	protected PixelLinkDao pixelLinkDao;
 
 	protected void flush()
 	{
