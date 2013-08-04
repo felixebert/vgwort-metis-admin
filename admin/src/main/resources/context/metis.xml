@@ -7,4 +7,8 @@
 		<constructor-arg name="user" value="${metis.client.user}" />
 		<constructor-arg name="password" value="${metis.client.password}" />
 	</bean>
+	
+	<beans profile="prd">
+	    <bean id="pixelOrderer" class="de.ifcore.metis.admin.pixelfetcher.PixelOrderer" />
+	</beans>
 </beans>

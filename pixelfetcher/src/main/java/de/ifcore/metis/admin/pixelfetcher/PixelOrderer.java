@@ -1,11 +1,9 @@
 package de.ifcore.metis.admin.pixelfetcher;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import org.springframework.scheduling.annotation.Scheduled;
 
-@Named
 public class PixelOrderer
 {
 	private final PixelFetcher pixelFetcher;
