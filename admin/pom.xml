@@ -10,6 +10,12 @@
 
 	<artifactId>metis-admin</artifactId>
 	<packaging>jar</packaging>
+	
+	<properties>
+	    <metis.client.user>user</metis.client.user>
+	    <metis.client.password>pass</metis.client.password>
+	    <metis.admin.pixel.poolsize>100</metis.admin.pixel.poolsize>
+	</properties>
 
 	<dependencies>
 		<!-- Web -->
