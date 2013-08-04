@@ -4,10 +4,13 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projections;
 
 import de.ifcore.metis.admin.dao.EntityDao;
+import de.ifcore.metis.admin.entities.Pixel;
 
 public abstract class HibernateAbstractEntityDao<T, PK extends Serializable> extends HibernateAbstractDao implements
 		EntityDao<T, PK>
@@ -61,5 +64,14 @@ public abstract class HibernateAbstractEntityDao<T, PK extends Serializable> ext
 	public Class<T> getEntityClass()
 	{
 		return type;
+	}
+
+	@Override
+	public long getCount()
+	{
+		Criteria criteria = getSession().createCriteria(Pixel.class);
+		criteria.setProjection(Projections.rowCount());
+		Number count = (Number)criteria.uniqueResult();
+		return count.longValue();
 	}
 }

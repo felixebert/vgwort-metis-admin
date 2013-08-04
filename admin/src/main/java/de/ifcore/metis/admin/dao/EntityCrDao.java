@@ -12,4 +12,6 @@ public interface EntityCrDao<T, PK extends Serializable>
 	public T save(T object);
 
 	public Class<T> getEntityClass();
+
+	public long getCount();
 }
