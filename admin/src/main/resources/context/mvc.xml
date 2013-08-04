@@ -3,11 +3,5 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
 	
     <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
-	<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
-		<property name="converters">
-			<set>
-				<bean class="de.schreibfabrik.spielepower.domain.convert.StringTrimConverter" />
-			</set>
-		</property>
-	</bean>
+	<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean" />
 </beans>

@@ -11,4 +11,9 @@ public interface PixelPool
 	 * @return publicId of an unlinked pixel
 	 */
 	public String poll();
+
+	/**
+	 * fill empty cache
+	 */
+	public void fillUp();
 }

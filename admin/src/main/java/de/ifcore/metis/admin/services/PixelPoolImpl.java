@@ -4,15 +4,17 @@ import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import de.ifcore.metis.admin.dao.PixelDao;
 import de.ifcore.metis.admin.dao.PixelLinkDao;
 import de.ifcore.metis.admin.entities.Pixel;
 
-@Service
+@Named
 public class PixelPoolImpl implements PixelPool
 {
 	private final PixelDao pixelDao;
@@ -20,6 +22,7 @@ public class PixelPoolImpl implements PixelPool
 
 	private final Queue<String> pool = new ConcurrentLinkedQueue<>();
 
+	@Inject
 	public PixelPoolImpl(PixelDao pixelDao, PixelLinkDao pixelLinkDao)
 	{
 		this.pixelDao = pixelDao;
@@ -35,6 +38,7 @@ public class PixelPoolImpl implements PixelPool
 		return (int)(pixels - linkedPixels);
 	}
 
+	@Override
 	@Scheduled(fixedDelay = 60 * 1000)
 	@Transactional(readOnly = true)
 	public void fillUp()

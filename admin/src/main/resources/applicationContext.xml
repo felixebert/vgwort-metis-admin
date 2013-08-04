@@ -17,5 +17,4 @@
 	<import resource="classpath:context/dataSource.xml" />
 	<import resource="classpath:context/hibernate.xml" />
 	<import resource="classpath:context/scheduler.xml" />
-	<import resource="classpath:context/messageSource.xml" />
 </beans>
