@@ -9,23 +9,20 @@ import org.springframework.transaction.annotation.Transactional;
 
 import de.ifcore.metis.admin.dao.PixelDao;
 import de.ifcore.metis.admin.entities.Pixel;
-import de.ifcore.metis.admin.pixelfetcher.PixelStore;
+import de.ifcore.metis.admin.pixelfetcher.PixelStorage;
+import de.ifcore.metis.admin.services.PixelPool;
 
 @Named
-public class PixelStoreImpl implements PixelStore
+public class PixelStorageImpl implements PixelStorage
 {
 	private final PixelDao pixelDao;
+	private final PixelPool pixelPool;
 
 	@Inject
-	public PixelStoreImpl(PixelDao pixelDao)
+	public PixelStorageImpl(PixelDao pixelDao, PixelPool pixelPool)
 	{
 		this.pixelDao = pixelDao;
-	}
-
-	@Override
-	public int getNumberOfUnusedPixels()
-	{
-		return 0;
+		this.pixelPool = pixelPool;
 	}
 
 	@Override
@@ -37,5 +34,11 @@ public class PixelStoreImpl implements PixelStore
 			Pixel pixelEntity = new Pixel(pixel.getPublicIdentificationId(), pixel.getPrivateIdentificationId());
 			pixelDao.save(pixelEntity);
 		}
+	}
+
+	@Override
+	public int getNumberOfUnusedPixels()
+	{
+		return pixelPool.size();
 	}
 }

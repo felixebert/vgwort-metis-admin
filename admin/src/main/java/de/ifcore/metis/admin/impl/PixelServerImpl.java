@@ -8,16 +8,19 @@ import org.springframework.transaction.annotation.Transactional;
 import de.ifcore.metis.admin.dao.PixelLinkDao;
 import de.ifcore.metis.admin.entities.PixelLink;
 import de.ifcore.metis.admin.pixelserver.PixelServer;
+import de.ifcore.metis.admin.services.PixelPool;
 
 @Named
 public class PixelServerImpl implements PixelServer
 {
 	private final PixelLinkDao pixelLinkDao;
+	private final PixelPool pixelPool;
 
 	@Inject
-	public PixelServerImpl(PixelLinkDao pixelLinkDao)
+	public PixelServerImpl(PixelLinkDao pixelLinkDao, PixelPool pixelPool)
 	{
 		this.pixelLinkDao = pixelLinkDao;
+		this.pixelPool = pixelPool;
 	}
 
 	@Override
@@ -32,9 +35,11 @@ public class PixelServerImpl implements PixelServer
 	@Transactional
 	public String assignPixel(String textId, String url)
 	{
-		String publicPixelId = null;
-		pixelLinkDao.save(new PixelLink(textId, publicPixelId, url));
+		String publicPixelId = pixelPool.poll();
+		if (publicPixelId != null)
+		{
+			pixelLinkDao.save(new PixelLink(textId, publicPixelId, url));
+		}
 		return publicPixelId;
 	}
-
 }

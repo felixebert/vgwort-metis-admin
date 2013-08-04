@@ -4,7 +4,7 @@ import java.util.List;
 
 import de.ifcore.metis.client.pixel.Pixel;
 
-public interface PixelStore
+public interface PixelStorage
 {
 	public int getNumberOfUnusedPixels();
 

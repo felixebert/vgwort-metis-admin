@@ -9,19 +9,19 @@ import org.springframework.scheduling.annotation.Scheduled;
 public class PixelOrderer
 {
 	private final PixelFetcher pixelFetcher;
-	private final PixelStore pixelStore;
+	private final PixelStorage pixelStorage;
 
 	@Inject
-	public PixelOrderer(PixelFetcher pixelFetcher, PixelStore pixelStore)
+	public PixelOrderer(PixelFetcher pixelFetcher, PixelStorage pixelStorage)
 	{
 		this.pixelFetcher = pixelFetcher;
-		this.pixelStore = pixelStore;
+		this.pixelStorage = pixelStorage;
 	}
 
 	@Scheduled(fixedDelay = 10 * 60 * 1000)
 	public void watch()
 	{
-		int numberOfUnusedPixels = pixelStore.getNumberOfUnusedPixels();
+		int numberOfUnusedPixels = pixelStorage.getNumberOfUnusedPixels();
 		if (numberOfUnusedPixels < 100)
 		{
 			pixelFetcher.fetch(1000);

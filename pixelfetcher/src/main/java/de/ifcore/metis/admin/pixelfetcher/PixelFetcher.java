@@ -12,18 +12,18 @@ import de.ifcore.metis.client.pixel.Pixel;
 public class PixelFetcher
 {
 	private final MetisClient metisClient;
-	private final PixelStore pixelStore;
+	private final PixelStorage pixelStorage;
 
 	@Inject
-	public PixelFetcher(MetisClient metisClient, PixelStore pixelStore)
+	public PixelFetcher(MetisClient metisClient, PixelStorage pixelStorage)
 	{
 		this.metisClient = metisClient;
-		this.pixelStore = pixelStore;
+		this.pixelStorage = pixelStorage;
 	}
 
 	public void fetch(int count)
 	{
 		List<Pixel> pixels = metisClient.orderPixels(count);
-		pixelStore.addAll(pixels);
+		pixelStorage.addAll(pixels);
 	}
 }
