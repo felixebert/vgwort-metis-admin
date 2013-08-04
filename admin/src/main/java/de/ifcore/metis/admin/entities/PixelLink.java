@@ -1,8 +1,12 @@
 package de.ifcore.metis.admin.entities;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+
+import org.joda.time.DateTime;
 
 @Entity
 public class PixelLink
@@ -17,6 +21,9 @@ public class PixelLink
 	@Column(nullable = false, updatable = false, unique = true)
 	private String url;
 
+	@Column(nullable = false, updatable = false)
+	private Date createdAt;
+
 	PixelLink()
 	{
 	}
@@ -26,6 +33,7 @@ public class PixelLink
 		this.textId = textId;
 		this.publicPixelId = publicPixelId;
 		this.url = url;
+		this.createdAt = new Date();
 	}
 
 	public String getTextId()
@@ -41,6 +49,11 @@ public class PixelLink
 	public String getUrl()
 	{
 		return url;
+	}
+
+	public DateTime getCreatedAt()
+	{
+		return new DateTime(createdAt);
 	}
 
 	@Override
