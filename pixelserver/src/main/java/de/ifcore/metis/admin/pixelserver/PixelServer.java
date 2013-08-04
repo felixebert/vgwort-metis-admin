@@ -2,12 +2,12 @@ package de.ifcore.metis.admin.pixelserver;
 
 public interface PixelServer
 {
-	public String getPublicPixelId(String pageId);
+	public String getPublicPixelId(String textId);
 
 	/**
-	 * @param pageId
+	 * @param textId
 	 * @param url
 	 * @return publicPixelId
 	 */
-	public String assignPixel(String pageId, String url);
+	public String assignPixel(String textId, String url);
 }
