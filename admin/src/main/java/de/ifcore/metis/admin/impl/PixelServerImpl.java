@@ -1,13 +1,12 @@
-package de.ifcore.metis.admin.pixel;
+package de.ifcore.metis.admin.impl;
 
-import org.springframework.stereotype.Service;
+import javax.inject.Named;
 
 import de.ifcore.metis.admin.pixelserver.PixelServer;
 
-@Service
+@Named
 public class PixelServerImpl implements PixelServer
 {
-
 	@Override
 	public String getPublicPixelId(String pageId)
 	{
