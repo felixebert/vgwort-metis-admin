@@ -12,15 +12,81 @@
 	<packaging>war</packaging>
 
 	<properties>
-		<metis.client.hostname>tom-test.vgwort.de</metis.client.hostname>
 		<metis.client.user>user</metis.client.user>
 		<metis.client.password>pass</metis.client.password>
-
-		<metis.admin.pixel.poolsize>5</metis.admin.pixel.poolsize>
-
-		<hibernate.dialect>org.hibernate.dialect.H2Dialect</hibernate.dialect>
-		<hibernate.hbm2ddl.auto>update</hibernate.hbm2ddl.auto>
 	</properties>
+
+	<profiles>
+		<profile>
+			<id>test</id>
+			<properties>
+				<metis.client.hostname>tom-test.vgwort.de</metis.client.hostname>
+				<metis.admin.pixel.poolsize>2</metis.admin.pixel.poolsize>
+
+				<hibernate.dialect>org.hibernate.dialect.H2Dialect</hibernate.dialect>
+				<hibernate.hbm2ddl.auto>create</hibernate.hbm2ddl.auto>
+			</properties>
+		</profile>
+		<profile>
+			<id>prd</id>
+			<properties>
+				<metis.client.hostname>tom.vgwort.de</metis.client.hostname>
+				<metis.admin.pixel.poolsize>100</metis.admin.pixel.poolsize>
+
+				<hibernate.dialect>org.hibernate.dialect.MySQL5InnoDBDialect</hibernate.dialect>
+				<hibernate.hbm2ddl.auto>validate</hibernate.hbm2ddl.auto>
+			</properties>
+		</profile>
+		<profile>
+			<id>jetty-run</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.eclipse.jetty</groupId>
+						<artifactId>jetty-maven-plugin</artifactId>
+						<version>9.0.4.v20130625</version>
+						<configuration>
+							<reload>manual</reload>
+							<stopPort>9966</stopPort>
+							<stopKey>metis</stopKey>
+							<webAppConfig>
+								<defaultsDescriptor>${project.basedir}/src/main/webapp/WEB-INF/webdefault.xml</defaultsDescriptor>
+							</webAppConfig>
+							<webAppSourceDirectory>
+								${project.build.directory}/${project.build.finalName}
+							</webAppSourceDirectory>
+						</configuration>
+						<dependencies>
+							<dependency>
+								<groupId>mysql</groupId>
+								<artifactId>mysql-connector-java</artifactId>
+								<version>5.1.21</version>
+							</dependency>
+							<dependency>
+								<groupId>com.h2database</groupId>
+								<artifactId>h2</artifactId>
+								<version>1.3.173</version>
+							</dependency>
+							<dependency>
+								<groupId>commons-dbcp</groupId>
+								<artifactId>commons-dbcp</artifactId>
+								<version>1.4</version>
+							</dependency>
+						</dependencies>
+						<executions>
+							<execution>
+								<id>jetty-run</id>
+								<phase>test</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 
 	<dependencies>
 		<!-- Web -->
@@ -83,7 +149,7 @@
 			<artifactId>ehcache-core</artifactId>
 			<version>2.6.6</version>
 		</dependency>
-		
+
 		<!-- Logging -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -116,9 +182,30 @@
 			<version>1.3.173</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${org.springframework.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>1.4</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
+	    <resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+				<excludes>
+					<exclude>**/*.default</exclude>
+				</excludes>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -130,56 +217,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
-	<profiles>
-		<profile>
-			<id>jetty-run</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.eclipse.jetty</groupId>
-						<artifactId>jetty-maven-plugin</artifactId>
-						<version>9.0.4.v20130625</version>
-						<configuration>
-							<reload>manual</reload>
-							<stopPort>9966</stopPort>
-							<stopKey>metis</stopKey>
-							<webAppConfig>
-								<defaultsDescriptor>${project.basedir}/src/main/webapp/WEB-INF/webdefault.xml</defaultsDescriptor>
-							</webAppConfig>
-							<webAppSourceDirectory>
-								${project.build.directory}/${project.build.finalName}
-							</webAppSourceDirectory>
-						</configuration>
-						<dependencies>
-							<dependency>
-								<groupId>mysql</groupId>
-								<artifactId>mysql-connector-java</artifactId>
-								<version>5.1.21</version>
-							</dependency>
-							<dependency>
-								<groupId>com.h2database</groupId>
-								<artifactId>h2</artifactId>
-								<version>1.3.173</version>
-							</dependency>
-							<dependency>
-								<groupId>commons-dbcp</groupId>
-								<artifactId>commons-dbcp</artifactId>
-								<version>1.4</version>
-							</dependency>
-						</dependencies>
-						<executions>
-							<execution>
-								<id>jetty-run</id>
-								<phase>test</phase>
-								<goals>
-									<goal>run</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
 </project>
