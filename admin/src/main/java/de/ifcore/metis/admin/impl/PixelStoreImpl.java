@@ -25,7 +25,6 @@ public class PixelStoreImpl implements PixelStore
 	@Override
 	public int getNumberOfUnusedPixels()
 	{
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
