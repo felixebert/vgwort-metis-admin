@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="ehcache.xsd">
+	<defaultCache overflowToDisk="false" maxElementsInMemory="500" eternal="false" timeToLiveSeconds="120" />
+	<cache overflowToDisk="false" name="org.hibernate.cache.internal.StandardQueryCache" maxElementsInMemory="10000" eternal="false"
+		timeToLiveSeconds="3600" />
+	<cache overflowToDisk="false" name="org.hibernate.cache.spi.UpdateTimestampsCache" maxElementsInMemory="10000" eternal="true" />
+</ehcache>
