@@ -44,10 +44,12 @@ public class ServePixelController
 	{
 		if (publicPixelId == null)
 		{
+			log.trace("returning empty response");
 			return EMPTY_RESPONSE;
 		}
 		else
 		{
+			log.trace("returning vgwort pixel");
 			String src = "domain.met.vgwort.de/na/" + publicPixelId;
 			String imgTag = "<img src=\"" + src + "\" height=\"1\" width=\"1\" border=\"0\" />";
 			return "document.write('" + imgTag + "')";
