@@ -14,7 +14,12 @@
 	<properties>
 	    <metis.client.user>user</metis.client.user>
 	    <metis.client.password>pass</metis.client.password>
-	    <metis.admin.pixel.poolsize>100</metis.admin.pixel.poolsize>
+	    <metis.admin.pixel.poolsize>5</metis.admin.pixel.poolsize>
+	    
+	    <spring.messageSource.cacheSeconds>300</spring.messageSource.cacheSeconds>
+	    
+	    <hibernate.dialect>org.hibernate.dialect.H2Dialect</hibernate.dialect>
+	    <hibernate.hbm2ddl.auto>update</hibernate.hbm2ddl.auto>
 	</properties>
 
 	<dependencies>
