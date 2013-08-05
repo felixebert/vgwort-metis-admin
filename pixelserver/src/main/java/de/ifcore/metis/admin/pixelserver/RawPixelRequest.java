@@ -2,7 +2,7 @@ package de.ifcore.metis.admin.pixelserver;
 
 import org.springframework.util.StringUtils;
 
-public class PageRequest
+public class RawPixelRequest
 {
 	private String category;
 	private Long id;
@@ -38,18 +38,18 @@ public class PageRequest
 		this.url = url;
 	}
 
-	public Page toPage()
+	public PixelRequest process()
 	{
 		if (StringUtils.isEmpty(category))
 		{
 			throw new IllegalArgumentException();
 		}
-		return new Page(category + "-" + id, url);
+		return new PixelRequest(category + "-" + id, url);
 	}
 
 	@Override
 	public String toString()
 	{
-		return "PageRequest [category=" + category + ", id=" + id + ", url=" + url + "]";
+		return "RawPixelRequest [category=" + category + ", id=" + id + ", url=" + url + "]";
 	}
 }

@@ -26,16 +26,16 @@ public class ServePixelController
 
 	@RequestMapping(method = RequestMethod.GET)
 	@ResponseBody
-	public String get(PageRequest pageRequest)
+	public String get(RawPixelRequest rawPixelRequest)
 	{
 		try
 		{
-			String publicPixelId = pageRequest.toPage().getPublicPixelId(pixelServer);
+			String publicPixelId = rawPixelRequest.process().getPublicPixelId(pixelServer);
 			return generateResponse(publicPixelId);
 		}
 		catch (Exception e)
 		{
-			log.error("couldn't determine publicPixelId for pageRequest", e);
+			log.error("couldn't determine publicPixelId for pixelRequest " + rawPixelRequest, e);
 			return EMPTY_RESPONSE;
 		}
 	}
