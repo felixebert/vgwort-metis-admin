@@ -1,5 +1,6 @@
 package de.ifcore.metis.admin.pixelserver;
 
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.util.StringUtils;
 
 public class RawPixelRequest
@@ -38,18 +39,23 @@ public class RawPixelRequest
 		this.url = url;
 	}
 
+	public String getDecodedUrl()
+	{
+		return new String(Base64.decodeBase64(url));
+	}
+
 	public PixelRequest process()
 	{
 		if (StringUtils.isEmpty(category))
 		{
 			throw new IllegalArgumentException();
 		}
-		return new PixelRequest(category + "-" + id, url);
+		return new PixelRequest(category + "-" + id, getDecodedUrl());
 	}
 
 	@Override
 	public String toString()
 	{
-		return "RawPixelRequest [category=" + category + ", id=" + id + ", url=" + url + "]";
+		return "RawPixelRequest [category=" + category + ", id=" + id + "]";
 	}
 }
