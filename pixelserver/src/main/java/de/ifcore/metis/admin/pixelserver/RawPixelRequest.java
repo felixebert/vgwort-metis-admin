@@ -1,13 +1,13 @@
 package de.ifcore.metis.admin.pixelserver;
 
-import org.apache.commons.codec.binary.Base64;
 import org.springframework.util.StringUtils;
 
 public class RawPixelRequest
 {
 	private String category;
 	private Long id;
-	private String url;
+	private String hostname;
+	private String path;
 
 	public String getCategory()
 	{
@@ -29,19 +29,29 @@ public class RawPixelRequest
 		this.id = id;
 	}
 
+	public String getHostname()
+	{
+		return hostname;
+	}
+
+	public void setHostname(String hostname)
+	{
+		this.hostname = hostname;
+	}
+
+	public String getPath()
+	{
+		return path;
+	}
+
+	public void setPath(String path)
+	{
+		this.path = path;
+	}
+
 	public String getUrl()
 	{
-		return url;
-	}
-
-	public void setUrl(String url)
-	{
-		this.url = url;
-	}
-
-	public String getDecodedUrl()
-	{
-		return new String(Base64.decodeBase64(url));
+		return "http://" + hostname + path;
 	}
 
 	public PixelRequest process()
@@ -50,12 +60,13 @@ public class RawPixelRequest
 		{
 			throw new IllegalArgumentException();
 		}
-		return new PixelRequest(category + "-" + id, getDecodedUrl());
+		return new PixelRequest(category + "-" + id, getUrl());
 	}
 
 	@Override
 	public String toString()
 	{
-		return "RawPixelRequest [category=" + category + ", id=" + id + "]";
+		return "RawPixelRequest [category=" + category + ", id=" + id + ", hostname=" + hostname + ", path=" + path
+				+ "]";
 	}
 }
