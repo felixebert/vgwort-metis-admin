@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import de.ifcore.metis.admin.dao.PixelLinkDao;
 import de.ifcore.metis.admin.entities.Pixel;
 import de.ifcore.metis.admin.entities.PixelLink;
+import de.ifcore.metis.admin.pixelserver.PixelResponse;
 import de.ifcore.metis.admin.pixelserver.PixelServer;
 import de.ifcore.metis.admin.services.PixelPool;
 
@@ -30,28 +31,40 @@ public class PixelServerImpl implements PixelServer
 
 	@Override
 	@Transactional(readOnly = true)
-	public String getPublicPixelId(String textId)
+	public PixelResponse getPixel(String textId)
 	{
 		PixelLink pixelLink = pixelLinkDao.get(textId);
-		log.trace("pixelLink for textId " + textId + ": " + pixelLink);
-		return pixelLink != null ? pixelLink.getPixel().getPublicId() : null;
+		log.trace("getPixel for " + textId + ": " + pixelLink);
+
+		if (pixelLink == null)
+		{
+			return null;
+		}
+		return pixelToPixelResponse(pixelLink.getPixel());
 	}
 
 	@Override
 	@Transactional
-	public String assignPixel(String textId, String url)
+	public PixelResponse assignPixel(String textId, String url)
 	{
-		log.trace("assignPixel for textId " + textId + " and url " + url);
 		Pixel pixel = pixelPool.poll();
 
 		if (pixel == null)
 		{
+			log.trace("couldn't assign a pixel to " + textId);
 			return null;
 		}
+		else
+		{
+			log.trace("assigning pixel to " + textId + " - " + pixel);
+			PixelLink pixelLink = new PixelLink(textId, pixel, url);
+			pixelLinkDao.save(pixelLink);
+			return pixelToPixelResponse(pixelLink.getPixel());
+		}
+	}
 
-		log.trace("assigning pixel " + pixel);
-		PixelLink pixelLink = new PixelLink(textId, pixel, url);
-		pixelLinkDao.save(pixelLink);
-		return pixel.getPublicId();
+	private PixelResponse pixelToPixelResponse(Pixel pixel)
+	{
+		return new PixelResponse(pixel.getHost(), pixel.getPublicId());
 	}
 }

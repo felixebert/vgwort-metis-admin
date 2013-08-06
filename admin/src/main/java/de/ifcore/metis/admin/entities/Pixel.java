@@ -21,6 +21,9 @@ public class Pixel
 	private String privateId;
 
 	@Column(nullable = false, updatable = false)
+	private String host;
+
+	@Column(nullable = false, updatable = false)
 	private Date createdAt;
 
 	@OneToOne(mappedBy = "pixel")
@@ -31,10 +34,11 @@ public class Pixel
 	{
 	}
 
-	public Pixel(String publicId, String privateId)
+	public Pixel(String publicId, String privateId, String host)
 	{
 		this.publicId = publicId;
 		this.privateId = privateId;
+		this.host = host;
 		this.createdAt = new Date();
 	}
 
@@ -46,6 +50,11 @@ public class Pixel
 	public String getPrivateId()
 	{
 		return privateId;
+	}
+
+	public String getHost()
+	{
+		return host;
 	}
 
 	public DateTime getCreatedAt()

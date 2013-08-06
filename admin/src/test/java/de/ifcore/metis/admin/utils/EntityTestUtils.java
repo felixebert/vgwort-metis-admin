@@ -14,7 +14,7 @@ public class EntityTestUtils
 
 	public static Pixel mockPixel(String publicPixelId)
 	{
-		return new Pixel(publicPixelId, rnd(10));
+		return new Pixel(publicPixelId, rnd(10), rnd(10));
 	}
 
 	public static PixelLink mockPixelLink()

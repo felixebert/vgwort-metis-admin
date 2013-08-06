@@ -35,7 +35,7 @@ public class PixelStorageImpl implements PixelStorage
 	{
 		for (de.ifcore.metis.client.pixel.Pixel pixel : pixels)
 		{
-			Pixel pixelEntity = new Pixel(pixel.getPublicIdentificationId(), pixel.getPrivateIdentificationId());
+			Pixel pixelEntity = new Pixel(pixel.getPublicId(), pixel.getPrivateId(), pixel.getHost());
 			pixelDao.save(pixelEntity);
 		}
 

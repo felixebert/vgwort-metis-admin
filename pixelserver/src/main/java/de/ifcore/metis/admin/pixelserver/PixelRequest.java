@@ -33,9 +33,9 @@ public class PixelRequest
 		return "Text [textId=" + textId + ", url=" + url + "]";
 	}
 
-	public String getPublicPixelId(PixelServer pixelServer)
+	public PixelResponse getResponse(PixelServer pixelServer)
 	{
-		String publicPixelId = pixelServer.getPublicPixelId(textId);
-		return (publicPixelId == null) ? pixelServer.assignPixel(textId, url) : publicPixelId;
+		PixelResponse response = pixelServer.getPixel(textId);
+		return (response == null) ? pixelServer.assignPixel(textId, url) : response;
 	}
 }
