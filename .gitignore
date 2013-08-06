@@ -7,5 +7,6 @@ bin/
 jetty-env.xml
 webdefault.xml
 log4j.xml
+logback.xml
 .externalToolBuilders
 dev.properties
