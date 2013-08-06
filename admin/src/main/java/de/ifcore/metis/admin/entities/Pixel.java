@@ -10,6 +10,8 @@ import javax.persistence.PrimaryKeyJoinColumn;
 
 import org.joda.time.DateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Pixel
 {
@@ -28,6 +30,7 @@ public class Pixel
 
 	@OneToOne(mappedBy = "pixel")
 	@PrimaryKeyJoinColumn
+	@JsonIgnore
 	private PixelLink link;
 
 	Pixel()

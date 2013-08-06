@@ -6,6 +6,14 @@
 
 	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
 	<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean" />
+	
+	<bean id="objectMapper" class="de.ifcore.metis.admin.utils.CustomObjectMapper" />
 
-	<mvc:annotation-driven conversion-service="conversionService" />
+	<mvc:annotation-driven conversion-service="conversionService">
+		<mvc:message-converters>
+			<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+				<property name="objectMapper" ref="objectMapper" />
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
 </beans>
