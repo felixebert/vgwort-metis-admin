@@ -1,5 +1,7 @@
 package de.ifcore.metis.admin.services;
 
+import de.ifcore.metis.admin.entities.Pixel;
+
 public interface PixelPool
 {
 	/**
@@ -10,7 +12,7 @@ public interface PixelPool
 	/**
 	 * @return publicId of an unlinked pixel
 	 */
-	public String poll();
+	public Pixel poll();
 
 	/**
 	 * fill empty cache

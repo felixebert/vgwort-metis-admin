@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.hibernate.SQLQuery;
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
@@ -24,8 +24,8 @@ public class HibernatePixelDao extends HibernateAbstractEntityDao<Pixel, String>
 	@Override
 	public List<Pixel> getUnlinkedPixels()
 	{
-		String sql = "SELECT p.* FROM pixel p LEFT JOIN pixel_link pl ON pl.public_pixel_id = p.public_id WHERE pl.text_id IS NULL";
-		SQLQuery query = getSession().createSQLQuery(sql);
+		String hql = "SELECT p FROM Pixel p LEFT JOIN p.link pl WHERE pl.textId IS NULL";
+		Query query = getSession().createQuery(hql);
 		return query.list();
 	}
 }

@@ -5,6 +5,9 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
 
 import org.joda.time.DateTime;
 
@@ -15,8 +18,10 @@ public class PixelLink
 	@Column(nullable = false, updatable = false)
 	private String textId;
 
-	@Column(nullable = false, updatable = false, unique = true)
-	private String publicPixelId;
+	@OneToOne
+	@MapsId
+	@JoinColumn(nullable = false, updatable = false, unique = true)
+	private Pixel pixel;
 
 	@Column(nullable = false, updatable = false, unique = true)
 	private String url;
@@ -28,10 +33,10 @@ public class PixelLink
 	{
 	}
 
-	public PixelLink(String textId, String publicPixelId, String url)
+	public PixelLink(String textId, Pixel pixel, String url)
 	{
 		this.textId = textId;
-		this.publicPixelId = publicPixelId;
+		this.pixel = pixel;
 		this.url = url;
 		this.createdAt = new Date();
 	}
@@ -41,9 +46,9 @@ public class PixelLink
 		return textId;
 	}
 
-	public String getPublicPixelId()
+	public Pixel getPixel()
 	{
-		return publicPixelId;
+		return pixel;
 	}
 
 	public String getUrl()
@@ -59,6 +64,6 @@ public class PixelLink
 	@Override
 	public String toString()
 	{
-		return "PixelLink [textId=" + textId + ", publicPixelId=" + publicPixelId + ", url=" + url + "]";
+		return "PixelLink [textId=" + textId + ", pixel=" + pixel + ", url=" + url + "]";
 	}
 }

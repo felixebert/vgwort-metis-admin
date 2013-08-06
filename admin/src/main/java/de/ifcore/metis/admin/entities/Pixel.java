@@ -5,6 +5,8 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 
 import org.joda.time.DateTime;
 
@@ -20,6 +22,10 @@ public class Pixel
 
 	@Column(nullable = false, updatable = false)
 	private Date createdAt;
+
+	@OneToOne(mappedBy = "pixel")
+	@PrimaryKeyJoinColumn
+	private PixelLink link;
 
 	Pixel()
 	{
@@ -45,6 +51,11 @@ public class Pixel
 	public DateTime getCreatedAt()
 	{
 		return new DateTime(createdAt);
+	}
+
+	public PixelLink getLink()
+	{
+		return link;
 	}
 
 	@Override

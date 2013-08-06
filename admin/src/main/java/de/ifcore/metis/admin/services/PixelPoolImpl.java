@@ -20,7 +20,7 @@ public class PixelPoolImpl implements PixelPool
 	private final PixelDao pixelDao;
 	private final PixelLinkDao pixelLinkDao;
 
-	private final Queue<String> pool = new ConcurrentLinkedQueue<>();
+	private final Queue<Pixel> pool = new ConcurrentLinkedQueue<>();
 
 	@Inject
 	public PixelPoolImpl(PixelDao pixelDao, PixelLinkDao pixelLinkDao)
@@ -48,13 +48,13 @@ public class PixelPoolImpl implements PixelPool
 			List<Pixel> unlinkedPixels = pixelDao.getUnlinkedPixels();
 			for (Pixel pixel : unlinkedPixels)
 			{
-				pool.add(pixel.getPublicId());
+				pool.add(pixel);
 			}
 		}
 	}
 
 	@Override
-	public String poll()
+	public Pixel poll()
 	{
 		return pool.poll();
 	}
