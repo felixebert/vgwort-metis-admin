@@ -34,13 +34,17 @@ public class PixelServerImpl implements PixelServer
 	public PixelResponse getPixel(String textId)
 	{
 		PixelLink pixelLink = pixelLinkDao.get(textId);
-		log.trace("getPixel for " + textId + ": " + pixelLink);
 
 		if (pixelLink == null)
 		{
+			log.trace("no pixel assigned to textId " + textId);
 			return null;
 		}
-		return pixelToPixelResponse(pixelLink.getPixel());
+		else
+		{
+			log.trace("returning assigned pixel for textId " + textId + " - " + pixelLink);
+			return pixelToPixelResponse(pixelLink.getPixel());
+		}
 	}
 
 	@Override
@@ -51,12 +55,12 @@ public class PixelServerImpl implements PixelServer
 
 		if (pixel == null)
 		{
-			log.trace("couldn't assign a pixel to " + textId);
+			log.trace("couldn't assign a pixel to textId " + textId);
 			return null;
 		}
 		else
 		{
-			log.trace("assigning pixel to " + textId + " - " + pixel);
+			log.trace("assigning a pixel to textId " + textId + " - " + pixel);
 			PixelLink pixelLink = new PixelLink(textId, pixel, url);
 			pixelLinkDao.save(pixelLink);
 			return pixelToPixelResponse(pixelLink.getPixel());

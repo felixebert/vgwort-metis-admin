@@ -55,7 +55,7 @@ public class PixelPoolImpl implements PixelPool
 				pool.add(pixel);
 			}
 
-			log.debug("pixelPool refilled");
+			log.debug("pixelPool refill - new size: " + pool.size());
 		}
 	}
 
