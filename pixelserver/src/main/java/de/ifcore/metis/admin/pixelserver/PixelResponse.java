@@ -31,6 +31,6 @@ public class PixelResponse
 	{
 		String src = "http://" + host + "/na/" + publicId;
 		String imgTag = "<img src=\"" + src + "\" height=\"1\" width=\"1\" border=\"0\" />";
-		return "document.write('" + imgTag + "')";
+		return "document.write('" + imgTag + "');";
 	}
 }

@@ -23,7 +23,7 @@ public class ServePixelController
 		this.pixelServer = pixelServer;
 	}
 
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET, produces = "application/javascript")
 	@ResponseBody
 	public String get(RawPixelRequest rawPixelRequest)
 	{
