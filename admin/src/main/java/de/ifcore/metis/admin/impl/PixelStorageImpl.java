@@ -5,6 +5,8 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 
 import de.ifcore.metis.admin.dao.PixelDao;
@@ -15,6 +17,8 @@ import de.ifcore.metis.admin.services.PixelPool;
 @Named
 public class PixelStorageImpl implements PixelStorage
 {
+	private static final Logger log = LoggerFactory.getLogger(PixelStorageImpl.class);
+
 	private final PixelDao pixelDao;
 	private final PixelPool pixelPool;
 
@@ -34,6 +38,8 @@ public class PixelStorageImpl implements PixelStorage
 			Pixel pixelEntity = new Pixel(pixel.getPublicIdentificationId(), pixel.getPrivateIdentificationId());
 			pixelDao.save(pixelEntity);
 		}
+
+		log.debug("persisted " + pixels.size() + " pixels");
 	}
 
 	@Override

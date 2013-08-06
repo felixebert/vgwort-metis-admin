@@ -7,6 +7,8 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +19,8 @@ import de.ifcore.metis.admin.entities.Pixel;
 @Named
 public class PixelPoolImpl implements PixelPool
 {
+	private static final Logger log = LoggerFactory.getLogger(PixelPoolImpl.class);
+
 	private final PixelDao pixelDao;
 	private final PixelLinkDao pixelLinkDao;
 
@@ -50,6 +54,8 @@ public class PixelPoolImpl implements PixelPool
 			{
 				pool.add(pixel);
 			}
+
+			log.debug("pixelPool refilled");
 		}
 	}
 
