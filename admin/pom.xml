@@ -26,6 +26,10 @@
 				<hibernate.dialect>org.hibernate.dialect.H2Dialect</hibernate.dialect>
 				<hibernate.hbm2ddl.auto>create</hibernate.hbm2ddl.auto>
 			</properties>
+			
+			<activation>
+			    <activeByDefault>true</activeByDefault>
+			</activation>
 		</profile>
 		<profile>
 			<id>prd</id>
