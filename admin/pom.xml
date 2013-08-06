@@ -21,7 +21,7 @@
 			<id>test</id>
 			<properties>
 				<metis.client.hostname>tom-test.vgwort.de</metis.client.hostname>
-				<metis.admin.pixel.poolsize>2</metis.admin.pixel.poolsize>
+				<metis.client.pixel.poolSize>2</metis.client.pixel.poolSize>
 
 				<hibernate.dialect>org.hibernate.dialect.H2Dialect</hibernate.dialect>
 				<hibernate.hbm2ddl.auto>create</hibernate.hbm2ddl.auto>
@@ -31,7 +31,7 @@
 			<id>prd</id>
 			<properties>
 				<metis.client.hostname>tom.vgwort.de</metis.client.hostname>
-				<metis.admin.pixel.poolsize>100</metis.admin.pixel.poolsize>
+				<metis.client.pixel.poolSize>100</metis.client.pixel.poolSize>
 
 				<hibernate.dialect>org.hibernate.dialect.MySQL5InnoDBDialect</hibernate.dialect>
 				<hibernate.hbm2ddl.auto>validate</hibernate.hbm2ddl.auto>
@@ -162,13 +162,6 @@
 			<groupId>net.sf.ehcache</groupId>
 			<artifactId>ehcache-core</artifactId>
 			<version>2.6.6</version>
-		</dependency>
-
-		<!-- Logging -->
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.7.5</version>
 		</dependency>
 
 		<!-- Other -->
