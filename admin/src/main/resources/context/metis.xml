@@ -8,7 +8,9 @@
 		<constructor-arg name="password" value="${metis.client.password}" />
 	</bean>
 	
-	<beans profile="prd">
-	    <bean id="pixelOrderer" class="de.ifcore.metis.admin.pixelfetcher.PixelOrderer" />
+	<beans profile="prd,ref">
+	    <bean id="pixelOrderer" class="de.ifcore.metis.admin.pixelfetcher.PixelOrderer">
+	        <property name="poolSize" value="${metis.client.pixel.poolSize}" />
+	    </bean>
 	</beans>
 </beans>
