@@ -6,7 +6,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
 import org.joda.time.DateTime;
@@ -19,7 +18,6 @@ public class PixelLink
 	private String textId;
 
 	@OneToOne
-	@MapsId
 	@JoinColumn(nullable = false, updatable = false, unique = true)
 	private Pixel pixel;
 
