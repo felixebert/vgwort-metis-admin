@@ -8,7 +8,7 @@
 		<version>0.1</version>
 	</parent>
 
-	<artifactId>metis-admin-pixelfetcher</artifactId>
+	<artifactId>metis-pixelfetcher</artifactId>
 	<packaging>jar</packaging>
 
 	<dependencies>

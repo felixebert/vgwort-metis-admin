@@ -1,4 +1,4 @@
-package de.ifcore.metis.admin.pixelfetcher;
+package de.ifcore.metis.pixelfetcher;
 
 import javax.inject.Inject;
 

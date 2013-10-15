@@ -1,4 +1,4 @@
-package de.ifcore.metis.admin.pixelserver;
+package de.ifcore.metis.pixelserver;
 
 import javax.inject.Inject;
 
