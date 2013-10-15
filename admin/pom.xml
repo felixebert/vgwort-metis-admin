@@ -57,6 +57,7 @@
 							<stopKey>metis</stopKey>
 							<webAppConfig>
 								<defaultsDescriptor>${project.basedir}/src/main/webapp/WEB-INF/webdefault.xml</defaultsDescriptor>
+								<allowDuplicateFragmentNames>true</allowDuplicateFragmentNames>
 							</webAppConfig>
 							<webAppSourceDirectory>
 								${project.build.directory}/${project.build.finalName}
