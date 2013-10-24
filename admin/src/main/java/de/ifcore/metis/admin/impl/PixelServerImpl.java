@@ -10,9 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 import de.ifcore.metis.admin.dao.PixelLinkDao;
 import de.ifcore.metis.admin.entities.Pixel;
 import de.ifcore.metis.admin.entities.PixelLink;
-import de.ifcore.metis.admin.pixelserver.PixelResponse;
-import de.ifcore.metis.admin.pixelserver.PixelServer;
 import de.ifcore.metis.admin.services.PixelPool;
+import de.ifcore.metis.pixelserver.PixelResponse;
+import de.ifcore.metis.pixelserver.PixelServer;
 
 @Named
 public class PixelServerImpl implements PixelServer

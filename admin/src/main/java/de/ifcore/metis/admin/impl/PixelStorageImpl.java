@@ -11,8 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import de.ifcore.metis.admin.dao.PixelDao;
 import de.ifcore.metis.admin.entities.Pixel;
-import de.ifcore.metis.admin.pixelfetcher.PixelStorage;
 import de.ifcore.metis.admin.services.PixelPool;
+import de.ifcore.metis.pixelfetcher.PixelStorage;
 
 @Named
 public class PixelStorageImpl implements PixelStorage
