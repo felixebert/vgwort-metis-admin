@@ -1,5 +1,6 @@
 package de.ifcore.metis.admin.entities;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class Text
 	@JoinColumn(nullable = false, updatable = false, unique = true)
 	private Pixel pixel;
 
-	@OneToMany(mappedBy = "text", cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "text", cascade = CascadeType.ALL)
 	private List<TextUrl> urls;
 
 	@Column(nullable = false, updatable = false)
@@ -62,6 +63,16 @@ public class Text
 	public DateTime getCreatedAt()
 	{
 		return new DateTime(createdAt);
+	}
+
+	public List<TextUrl> getUrls()
+	{
+		return Collections.unmodifiableList(urls);
+	}
+
+	public void addUrl(TextUrl url)
+	{
+		urls.add(url);
 	}
 
 	@Override

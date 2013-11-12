@@ -1,5 +1,6 @@
 package de.ifcore.metis.admin.entities;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -65,7 +66,7 @@ public class Author
 
 	public List<AuthorAlias> getAliases()
 	{
-		return aliases;
+		return Collections.unmodifiableList(aliases);
 	}
 
 	public DateTime getCreatedAt()
