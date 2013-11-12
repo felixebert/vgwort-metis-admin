@@ -30,7 +30,7 @@ public class Author
 	@Column(nullable = false, updatable = false)
 	private Date createdAt;
 
-	@OneToMany(mappedBy = "text", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
 	private List<AuthorAlias> aliases;
 
 	Author()

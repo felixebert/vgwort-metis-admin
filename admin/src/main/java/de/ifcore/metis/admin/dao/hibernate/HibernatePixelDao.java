@@ -24,7 +24,7 @@ public class HibernatePixelDao extends HibernateAbstractEntityDao<Pixel, String>
 	@Override
 	public List<Pixel> getUnlinkedPixels()
 	{
-		String hql = "SELECT p FROM Pixel p LEFT JOIN p.link pl WHERE pl.textId IS NULL";
+		String hql = "SELECT p FROM Pixel p LEFT JOIN p.text t WHERE t.id IS NULL";
 		Query query = getSession().createQuery(hql);
 		return query.list();
 	}

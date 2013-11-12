@@ -10,7 +10,6 @@ import javax.inject.Named;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.transaction.annotation.Transactional;
 
 import de.ifcore.metis.admin.dao.TextUrlDao;
@@ -64,7 +63,6 @@ public class PixelServerImpl implements PixelServer
 		urlQueue.offer(url);
 	}
 
-	@Scheduled(fixedDelay = 30000)
 	public void pollUrlQueue()
 	{
 		String url = urlQueue.poll();
