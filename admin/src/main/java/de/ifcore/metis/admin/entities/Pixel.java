@@ -31,7 +31,7 @@ public class Pixel
 	@OneToOne(mappedBy = "pixel")
 	@PrimaryKeyJoinColumn
 	@JsonIgnore
-	private PixelLink link;
+	private Text text;
 
 	Pixel()
 	{
@@ -65,9 +65,9 @@ public class Pixel
 		return new DateTime(createdAt);
 	}
 
-	public PixelLink getLink()
+	public Text getText()
 	{
-		return link;
+		return text;
 	}
 
 	@Override

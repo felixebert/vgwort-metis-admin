@@ -1,0 +1,72 @@
+package de.ifcore.metis.admin.entities;
+
+import java.util.Date;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
+import org.joda.time.DateTime;
+
+@Entity
+public class Text
+{
+	@Id
+	@Column(nullable = false, updatable = false)
+	private String id;
+
+	private String author;
+
+	@OneToOne
+	@JoinColumn(nullable = false, updatable = false, unique = true)
+	private Pixel pixel;
+
+	@OneToMany(mappedBy = "text", cascade = CascadeType.REMOVE)
+	private List<TextUrl> urls;
+
+	@Column(nullable = false, updatable = false)
+	private Date createdAt;
+
+	Text()
+	{
+	}
+
+	public Text(String id, String author, Pixel pixel)
+	{
+		this.id = id;
+		this.author = author;
+		this.pixel = pixel;
+		this.createdAt = new Date();
+	}
+
+	public String getId()
+	{
+		return id;
+	}
+
+	public Pixel getPixel()
+	{
+		return pixel;
+	}
+
+	public String getAuthor()
+	{
+		return author;
+	}
+
+	public DateTime getCreatedAt()
+	{
+		return new DateTime(createdAt);
+	}
+
+	@Override
+	public String toString()
+	{
+		return "Text [id=" + id + ", author=" + author + ", createdAt=" + createdAt + "]";
+	}
+}
