@@ -7,9 +7,9 @@ import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import de.ifcore.metis.admin.dao.PixelDao;
-import de.ifcore.metis.admin.dao.PixelLinkDao;
+import de.ifcore.metis.admin.dao.TextDao;
 import de.ifcore.metis.admin.entities.Pixel;
-import de.ifcore.metis.admin.entities.PixelLink;
+import de.ifcore.metis.admin.entities.Text;
 
 @TransactionConfiguration(defaultRollback = true)
 @Transactional
@@ -23,7 +23,7 @@ public abstract class IntegrationTest
 	protected PixelDao pixelDao;
 
 	@Autowired
-	protected PixelLinkDao pixelLinkDao;
+	protected TextDao textDao;
 
 	protected void flush()
 	{
@@ -42,9 +42,9 @@ public abstract class IntegrationTest
 		return pixel;
 	}
 
-	protected PixelLink persistPixelLink(PixelLink pixelLink)
+	protected Text persistText(Text text)
 	{
-		pixelLinkDao.save(pixelLink);
-		return pixelLink;
+		textDao.save(text);
+		return text;
 	}
 }

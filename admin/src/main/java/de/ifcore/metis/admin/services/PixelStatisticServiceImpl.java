@@ -6,20 +6,20 @@ import javax.inject.Named;
 import org.springframework.transaction.annotation.Transactional;
 
 import de.ifcore.metis.admin.dao.PixelDao;
-import de.ifcore.metis.admin.dao.PixelLinkDao;
+import de.ifcore.metis.admin.dao.TextDao;
 import de.ifcore.metis.admin.models.PixelStatistic;
 
 @Named
 public class PixelStatisticServiceImpl implements PixelStatisticService
 {
 	private final PixelDao pixelDao;
-	private final PixelLinkDao pixelLinkDao;
+	private final TextDao textDao;
 
 	@Inject
-	public PixelStatisticServiceImpl(PixelDao pixelDao, PixelLinkDao pixelLinkDao)
+	public PixelStatisticServiceImpl(PixelDao pixelDao, TextDao textDao)
 	{
 		this.pixelDao = pixelDao;
-		this.pixelLinkDao = pixelLinkDao;
+		this.textDao = textDao;
 	}
 
 	@Override
@@ -27,7 +27,7 @@ public class PixelStatisticServiceImpl implements PixelStatisticService
 	public PixelStatistic getStatistic()
 	{
 		long pixelCount = pixelDao.getCount();
-		long pixelLinkCount = pixelLinkDao.getCount();
-		return new PixelStatistic(pixelCount, pixelLinkCount);
+		long textCount = textDao.getCount();
+		return new PixelStatistic(pixelCount, textCount);
 	}
 }

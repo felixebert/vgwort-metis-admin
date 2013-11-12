@@ -3,7 +3,7 @@ package de.ifcore.metis.admin.utils;
 import org.apache.commons.lang3.RandomStringUtils;
 
 import de.ifcore.metis.admin.entities.Pixel;
-import de.ifcore.metis.admin.entities.PixelLink;
+import de.ifcore.metis.admin.entities.Text;
 
 public class EntityTestUtils
 {
@@ -17,14 +17,14 @@ public class EntityTestUtils
 		return new Pixel(publicPixelId, rnd(10), rnd(10));
 	}
 
-	public static PixelLink mockPixelLink()
+	public static Text mockText()
 	{
-		return mockPixelLink(mockPixel());
+		return mockText(mockPixel());
 	}
 
-	public static PixelLink mockPixelLink(Pixel pixel)
+	public static Text mockText(Pixel pixel)
 	{
-		return new PixelLink(rnd(10), pixel, rnd(10));
+		return new Text(rnd(10), rnd(10), pixel);
 	}
 
 	private static String rnd(int count)

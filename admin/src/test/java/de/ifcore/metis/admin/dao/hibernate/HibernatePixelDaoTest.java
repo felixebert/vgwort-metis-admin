@@ -1,7 +1,7 @@
 package de.ifcore.metis.admin.dao.hibernate;
 
 import static de.ifcore.metis.admin.utils.EntityTestUtils.mockPixel;
-import static de.ifcore.metis.admin.utils.EntityTestUtils.mockPixelLink;
+import static de.ifcore.metis.admin.utils.EntityTestUtils.mockText;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -37,7 +37,7 @@ public class HibernatePixelDaoTest extends IntegrationTest
 	public void shouldNotListLinkedPixels()
 	{
 		Pixel pixel = persistPixel(mockPixel());
-		persistPixelLink(mockPixelLink(pixel));
+		persistText(mockText(pixel));
 		flushAndClear();
 
 		assertEquals(pixelDao.getUnlinkedPixels().size(), 0);

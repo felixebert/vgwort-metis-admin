@@ -13,7 +13,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.transaction.annotation.Transactional;
 
 import de.ifcore.metis.admin.dao.PixelDao;
-import de.ifcore.metis.admin.dao.PixelLinkDao;
+import de.ifcore.metis.admin.dao.TextDao;
 import de.ifcore.metis.admin.entities.Pixel;
 
 @Named
@@ -22,15 +22,15 @@ public class PixelPoolImpl implements PixelPool
 	private static final Logger log = LoggerFactory.getLogger(PixelPoolImpl.class);
 
 	private final PixelDao pixelDao;
-	private final PixelLinkDao pixelLinkDao;
+	private final TextDao textDao;
 
 	private final Queue<Pixel> pool = new ConcurrentLinkedQueue<>();
 
 	@Inject
-	public PixelPoolImpl(PixelDao pixelDao, PixelLinkDao pixelLinkDao)
+	public PixelPoolImpl(PixelDao pixelDao, TextDao textDao)
 	{
 		this.pixelDao = pixelDao;
-		this.pixelLinkDao = pixelLinkDao;
+		this.textDao = textDao;
 	}
 
 	@Override
@@ -38,7 +38,7 @@ public class PixelPoolImpl implements PixelPool
 	public int size()
 	{
 		long pixels = pixelDao.getCount();
-		long linkedPixels = pixelLinkDao.getCount();
+		long linkedPixels = textDao.getCount();
 		return (int)(pixels - linkedPixels);
 	}
 
