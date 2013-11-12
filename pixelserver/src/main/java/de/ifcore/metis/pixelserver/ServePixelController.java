@@ -30,8 +30,7 @@ public class ServePixelController
 	public String get(RawPixelRequest request, @RequestHeader(value = "referer", required = false) String referer)
 	{
 		request.setReferer(referer);
-		PixelResponse response = request.process().getResponse(pixelServer);
-		return response == null ? "" : response.toString();
+		return request.process().getResponse(pixelServer).toString();
 	}
 
 	@ExceptionHandler

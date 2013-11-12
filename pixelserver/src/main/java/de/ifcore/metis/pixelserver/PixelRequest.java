@@ -28,11 +28,11 @@ public class PixelRequest
 
 	public PixelResponse getResponse(PixelServer pixelServer)
 	{
-		PixelResponse response = pixelServer.getPixel(url);
-		if (response == null)
+		PixelDigest pixel = pixelServer.getPixel(url);
+		if (pixel == null)
 		{
 			pixelServer.assignPixelTo(url);
 		}
-		return response;
+		return new PixelResponse(pixel);
 	}
 }

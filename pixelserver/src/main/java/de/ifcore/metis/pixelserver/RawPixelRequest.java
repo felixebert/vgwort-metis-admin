@@ -1,6 +1,5 @@
 package de.ifcore.metis.pixelserver;
 
-
 public class RawPixelRequest
 {
 	private String hostname;

@@ -2,35 +2,35 @@ package de.ifcore.metis.pixelserver;
 
 public class PixelResponse
 {
-	private final String host;
-	private final String publicId;
+	private final PixelDigest pixel;
+	private final String responseString;
 
-	public PixelResponse(String host, String publicId)
+	public PixelResponse(PixelDigest pixel)
 	{
-		if (host == null || publicId == null)
+		this.pixel = pixel;
+		this.responseString = buildResponseString();
+	}
+
+	public PixelDigest getPixel()
+	{
+		return pixel;
+	}
+
+	private String buildResponseString()
+	{
+		if (pixel == null)
 		{
-			throw new IllegalArgumentException();
+			return "";
 		}
 
-		this.host = host;
-		this.publicId = publicId;
-	}
-
-	public String getHost()
-	{
-		return host;
-	}
-
-	public String getPublicId()
-	{
-		return publicId;
+		String src = "http://" + pixel.getHost() + "/na/" + pixel.getPublicId();
+		String imgTag = "<img src=\"" + src + "\" height=\"1\" width=\"1\" border=\"0\" />";
+		return "document.write('" + imgTag + "');";
 	}
 
 	@Override
 	public String toString()
 	{
-		String src = "http://" + host + "/na/" + publicId;
-		String imgTag = "<img src=\"" + src + "\" height=\"1\" width=\"1\" border=\"0\" />";
-		return "document.write('" + imgTag + "');";
+		return responseString;
 	}
 }
