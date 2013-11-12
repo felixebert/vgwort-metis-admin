@@ -13,9 +13,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.transaction.annotation.Transactional;
 
-import de.ifcore.metis.admin.dao.TextDao;
+import de.ifcore.metis.admin.dao.TextUrlDao;
 import de.ifcore.metis.admin.entities.Pixel;
 import de.ifcore.metis.admin.entities.Text;
+import de.ifcore.metis.admin.entities.TextUrl;
 import de.ifcore.metis.admin.services.PixelPool;
 import de.ifcore.metis.pixelserver.PixelDigest;
 import de.ifcore.metis.pixelserver.PixelServer;
@@ -25,16 +26,16 @@ public class PixelServerImpl implements PixelServer
 {
 	private static final Logger log = LoggerFactory.getLogger(PixelServerImpl.class);
 
-	private final TextDao textDao;
+	private final TextUrlDao textUrlDao;
 	private final PixelPool pixelPool;
 
 	private final Queue<String> urlQueue = new LinkedBlockingQueue<>(100);
 	private final Set<String> urlBlacklist = new HashSet<>();
 
 	@Inject
-	public PixelServerImpl(TextDao textDao, PixelPool pixelPool)
+	public PixelServerImpl(TextUrlDao textUrlDao, PixelPool pixelPool)
 	{
-		this.textDao = textDao;
+		this.textUrlDao = textUrlDao;
 		this.pixelPool = pixelPool;
 	}
 
@@ -42,18 +43,17 @@ public class PixelServerImpl implements PixelServer
 	@Transactional(readOnly = true)
 	public PixelDigest getPixel(String url)
 	{
-		String textId = url;
-		Text text = textDao.get(textId);
+		TextUrl textUrl = textUrlDao.get(url);
 
-		if (text == null)
+		if (textUrl == null)
 		{
-			log.trace("no pixel assigned to textId " + textId);
+			log.trace("no pixel assigned to url " + url);
 			return null;
 		}
 		else
 		{
-			log.trace("returning assigned pixel for textId " + textId + " - " + text);
-			Pixel pixelEntity = text.getPixel();
+			log.trace("returning assigned pixel for url " + url);
+			Pixel pixelEntity = textUrl.getText().getPixel();
 			return new PixelDigest(pixelEntity.getHost(), pixelEntity.getPublicId());
 		}
 	}
@@ -81,7 +81,7 @@ public class PixelServerImpl implements PixelServer
 			{
 				log.trace("assigning a pixel to textId " + textId + " - " + pixel);
 				Text text = new Text(textId, null, pixel);
-				textDao.save(text);
+				//textDao.save(text);
 			}
 		}
 	}
