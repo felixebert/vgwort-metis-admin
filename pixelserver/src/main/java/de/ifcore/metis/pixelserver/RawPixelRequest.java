@@ -8,6 +8,7 @@ public class RawPixelRequest
 	private Long id;
 	private String hostname;
 	private String path;
+	private String referer;
 
 	public String getCategory()
 	{
@@ -49,9 +50,26 @@ public class RawPixelRequest
 		this.path = path;
 	}
 
+	public String getReferer()
+	{
+		return referer;
+	}
+
+	public void setReferer(String referer)
+	{
+		this.referer = referer;
+	}
+
 	public String getUrl()
 	{
-		return "http://" + hostname + path;
+		if (hostname == null || path == null)
+		{
+			return referer;
+		}
+		else
+		{
+			return "http://" + hostname + path;
+		}
 	}
 
 	public PixelRequest process()
