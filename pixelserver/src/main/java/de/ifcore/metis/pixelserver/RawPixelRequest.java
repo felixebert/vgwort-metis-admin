@@ -1,34 +1,11 @@
 package de.ifcore.metis.pixelserver;
 
-import org.springframework.util.StringUtils;
 
 public class RawPixelRequest
 {
-	private String category;
-	private Long id;
 	private String hostname;
 	private String path;
 	private String referer;
-
-	public String getCategory()
-	{
-		return category;
-	}
-
-	public void setCategory(String category)
-	{
-		this.category = category;
-	}
-
-	public Long getId()
-	{
-		return id;
-	}
-
-	public void setId(Long id)
-	{
-		this.id = id;
-	}
 
 	public String getHostname()
 	{
@@ -74,17 +51,12 @@ public class RawPixelRequest
 
 	public PixelRequest process()
 	{
-		if (StringUtils.isEmpty(category))
-		{
-			throw new IllegalArgumentException();
-		}
-		return new PixelRequest(category + "-" + id, getUrl());
+		return new PixelRequest(getUrl());
 	}
 
 	@Override
 	public String toString()
 	{
-		return "RawPixelRequest [category=" + category + ", id=" + id + ", hostname=" + hostname + ", path=" + path
-				+ "]";
+		return "RawPixelRequest [hostname=" + hostname + ", path=" + path + ", referer=" + referer + "]";
 	}
 }

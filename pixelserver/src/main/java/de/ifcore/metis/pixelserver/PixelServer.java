@@ -2,7 +2,7 @@ package de.ifcore.metis.pixelserver;
 
 public interface PixelServer
 {
-	public PixelResponse getPixel(String textId);
+	public PixelResponse getPixel(String url);
 
-	public PixelResponse assignPixel(String textId, String url);
+	public void assignPixelTo(String url);
 }

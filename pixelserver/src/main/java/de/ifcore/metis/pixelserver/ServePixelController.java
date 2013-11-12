@@ -31,14 +31,14 @@ public class ServePixelController
 	{
 		request.setReferer(referer);
 		PixelResponse response = request.process().getResponse(pixelServer);
-		return response.toString();
+		return response == null ? "" : response.toString();
 	}
 
 	@ExceptionHandler
 	@ResponseBody
 	public String handleExceptions(Exception e)
 	{
-		log.error("couldn't determine publicPixelId", e);
+		log.error("couldn't serve pixel", e);
 		return "";
 	}
 }
