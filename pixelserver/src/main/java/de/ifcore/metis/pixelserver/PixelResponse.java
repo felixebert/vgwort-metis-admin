@@ -1,5 +1,11 @@
 package de.ifcore.metis.pixelserver;
 
+/**
+ * Builds an img tag pointing to the VG-Wort Pixel Image and wraps it inside the JavaScript function document.write
+ * 
+ * @author felix
+ * 
+ */
 public class PixelResponse
 {
 	private final PixelDigest pixel;

@@ -1,5 +1,11 @@
 package de.ifcore.metis.pixelserver;
 
+/**
+ * Container for the raw request
+ * 
+ * @author felix
+ * 
+ */
 public class RawPixelRequest
 {
 	private String hostname;
@@ -36,6 +42,9 @@ public class RawPixelRequest
 		this.referer = referer;
 	}
 
+	/**
+	 * @return returns the referer if hostname or path is null, otherwise http:// + hostname + path
+	 */
 	public String getUrl()
 	{
 		if (hostname == null || path == null)
@@ -48,6 +57,11 @@ public class RawPixelRequest
 		}
 	}
 
+	/**
+	 * Converts this raw, specific request holder to a generic {@link PixelRequest}
+	 * 
+	 * @return {@link PixelRequest}
+	 */
 	public PixelRequest process()
 	{
 		return new PixelRequest(getUrl());

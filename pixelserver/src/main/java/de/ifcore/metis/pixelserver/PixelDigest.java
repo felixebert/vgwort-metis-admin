@@ -1,5 +1,11 @@
 package de.ifcore.metis.pixelserver;
 
+/**
+ * This class holds all necessary pixel fields to use a VG-WORT pixel inside a webpage (using an img tag)
+ * 
+ * @author felix
+ * 
+ */
 public class PixelDigest
 {
 	private final String host;
