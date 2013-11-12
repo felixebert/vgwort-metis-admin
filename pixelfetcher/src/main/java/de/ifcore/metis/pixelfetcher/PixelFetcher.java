@@ -26,6 +26,11 @@ public class PixelFetcher
 		this.pixelStorage = pixelStorage;
 	}
 
+	/**
+	 * fetches a given number of new pixels from VG-WORT and persists them in the {@link PixelStorage}
+	 * 
+	 * @param count
+	 */
 	public void fetch(int count)
 	{
 		List<Pixel> pixels = metisClient.orderPixels(count);

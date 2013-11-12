@@ -4,6 +4,12 @@ import javax.inject.Inject;
 
 import org.springframework.scheduling.annotation.Scheduled;
 
+/**
+ * Monitors the amount of unused pixels and automatically orders new pixels when the reserve runs short
+ * 
+ * @author felix
+ * 
+ */
 public class PixelOrderer
 {
 	private final PixelFetcher pixelFetcher;
@@ -18,6 +24,9 @@ public class PixelOrderer
 		this.pixelStorage = pixelStorage;
 	}
 
+	/**
+	 * monitors the amount of unused pixels in the {@link PixelStorage}. reorders new pixels if necessary
+	 */
 	@Scheduled(fixedDelay = 10 * 60 * 1000)
 	public void watch()
 	{
@@ -28,6 +37,10 @@ public class PixelOrderer
 		}
 	}
 
+	/**
+	 * @param numberOfUnusedPixels
+	 * @return true when the number of unused pixels is less or equals to 10% of the poolSize
+	 */
 	public boolean reorderRequired(int numberOfUnusedPixels)
 	{
 		int treshold = Math.round(poolSize / 10);
