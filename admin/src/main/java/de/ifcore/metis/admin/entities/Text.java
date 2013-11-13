@@ -33,6 +33,14 @@ public class Text
 	@Column(nullable = false, updatable = false)
 	private Date createdAt;
 
+	private Date submittedAt;
+
+	private Date submissionAttemptedAt;
+
+	private boolean submissionSuspended;
+
+	private String submissionError;
+
 	Text()
 	{
 	}
@@ -73,6 +81,51 @@ public class Text
 	public void addUrl(TextUrl url)
 	{
 		urls.add(url);
+	}
+
+	public DateTime getSubmittedAt()
+	{
+		return new DateTime(submittedAt);
+	}
+
+	public void setSubmittedAt(DateTime submittedAt)
+	{
+		this.submittedAt = submittedAt.toDate();
+	}
+
+	public DateTime getSubmissionAttemptedAt()
+	{
+		return new DateTime(submissionAttemptedAt);
+	}
+
+	public void setSubmissionAttemptedAt(DateTime submissionAttemptedAt)
+	{
+		this.submissionAttemptedAt = submissionAttemptedAt.toDate();
+	}
+
+	public void setAuthor(String author)
+	{
+		this.author = author;
+	}
+
+	public boolean isSubmissionSuspended()
+	{
+		return submissionSuspended;
+	}
+
+	public void setSubmissionSuspended(boolean submissionSuspended)
+	{
+		this.submissionSuspended = submissionSuspended;
+	}
+
+	public String getSubmissionError()
+	{
+		return submissionError;
+	}
+
+	public void setSubmissionError(String submissionError)
+	{
+		this.submissionError = submissionError;
 	}
 
 	@Override

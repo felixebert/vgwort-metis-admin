@@ -25,6 +25,7 @@ public class Author
 
 	private String lastname;
 
+	@Column(unique = true)
 	private String cardNumber;
 
 	@Column(nullable = false, updatable = false)
