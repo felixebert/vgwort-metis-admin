@@ -10,6 +10,7 @@
 	<modules>
 		<module>pixelserver</module>
 		<module>pixelfetcher</module>
+		<module>grabber</module>
 		<module>admin</module>
 	</modules>
 
