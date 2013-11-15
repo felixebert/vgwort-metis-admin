@@ -10,6 +10,8 @@ import javax.inject.Named;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.transaction.annotation.Transactional;
 
 import de.ifcore.metis.admin.dao.TextDao;
 import de.ifcore.metis.admin.entities.Pixel;
@@ -48,6 +50,8 @@ public class UrlAssignerImpl implements UrlAssigner
 	}
 
 	@Override
+	@Scheduled(fixedDelay = 5000)
+	@Transactional
 	public void execute()
 	{
 		String url = urlQueue.poll();

@@ -9,7 +9,7 @@
 	</bean>
 	
 	<beans profile="prd,ref">
-	    <bean id="pixelOrderer" class="de.ifcore.metis.admin.pixelfetcher.PixelOrderer">
+	    <bean id="pixelOrderer" class="de.ifcore.metis.pixelfetcher.PixelOrderer">
 	        <property name="poolSize" value="${metis.client.pixel.poolSize}" />
 	    </bean>
 	</beans>
