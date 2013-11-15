@@ -1,10 +1,5 @@
 package de.ifcore.metis.admin.impl;
 
-import java.util.HashSet;
-import java.util.Queue;
-import java.util.Set;
-import java.util.concurrent.LinkedBlockingQueue;
-
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -14,9 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import de.ifcore.metis.admin.dao.TextUrlDao;
 import de.ifcore.metis.admin.entities.Pixel;
-import de.ifcore.metis.admin.entities.Text;
 import de.ifcore.metis.admin.entities.TextUrl;
-import de.ifcore.metis.admin.services.PixelPool;
+import de.ifcore.metis.admin.services.UrlAssigner;
 import de.ifcore.metis.pixelserver.PixelDigest;
 import de.ifcore.metis.pixelserver.PixelServer;
 
@@ -26,16 +20,13 @@ public class PixelServerImpl implements PixelServer
 	private static final Logger log = LoggerFactory.getLogger(PixelServerImpl.class);
 
 	private final TextUrlDao textUrlDao;
-	private final PixelPool pixelPool;
-
-	private final Queue<String> urlQueue = new LinkedBlockingQueue<>(100);
-	private final Set<String> urlBlacklist = new HashSet<>();
+	private final UrlAssigner urlAssigner;
 
 	@Inject
-	public PixelServerImpl(TextUrlDao textUrlDao, PixelPool pixelPool)
+	public PixelServerImpl(TextUrlDao textUrlDao, UrlAssigner urlAssigner)
 	{
 		this.textUrlDao = textUrlDao;
-		this.pixelPool = pixelPool;
+		this.urlAssigner = urlAssigner;
 	}
 
 	@Override
@@ -60,27 +51,6 @@ public class PixelServerImpl implements PixelServer
 	@Override
 	public void assignPixelTo(String url)
 	{
-		urlQueue.offer(url);
-	}
-
-	public void pollUrlQueue()
-	{
-		String url = urlQueue.poll();
-		if (url != null)
-		{
-			String textId = url;
-			Pixel pixel = pixelPool.poll();
-
-			if (pixel == null)
-			{
-				log.trace("couldn't assign a pixel to textId " + textId);
-			}
-			else
-			{
-				log.trace("assigning a pixel to textId " + textId + " - " + pixel);
-				Text text = new Text(textId, null, pixel);
-				//textDao.save(text);
-			}
-		}
+		urlAssigner.offer(url);
 	}
 }

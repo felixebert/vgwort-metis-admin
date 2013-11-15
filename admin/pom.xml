@@ -132,6 +132,11 @@
 			<artifactId>metis-pixelfetcher</artifactId>
 			<version>0.1</version>
 		</dependency>
+		<dependency>
+			<groupId>de.ifcore.metis</groupId>
+			<artifactId>metis-grabber</artifactId>
+			<version>0.1</version>
+		</dependency>
 
 		<!-- Validation -->
 		<dependency>

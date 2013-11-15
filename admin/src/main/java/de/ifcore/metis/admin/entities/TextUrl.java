@@ -28,7 +28,7 @@ public class TextUrl
 	{
 	}
 
-	public TextUrl(String url, Text text, Date createdAt)
+	public TextUrl(String url, Text text)
 	{
 		this.url = url;
 		this.text = text;
