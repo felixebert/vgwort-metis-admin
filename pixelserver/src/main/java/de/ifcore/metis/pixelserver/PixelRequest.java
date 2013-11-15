@@ -15,7 +15,7 @@ public class PixelRequest
 	{
 		if (!UrlValidator.getInstance().isValid(url))
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException(url);
 		}
 		this.url = url;
 	}
