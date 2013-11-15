@@ -1,9 +1,12 @@
 package de.ifcore.metis.grabber;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import de.ifcore.metis.grabber.GrabbedData.Builder;
 
@@ -40,25 +43,40 @@ public class WebPage
 
 	public String getText()
 	{
-		// TODO Auto-generated method stub
+		Element element = document.select(".vgw-text").first();
+		if (element != null)
+		{
+			return element.text();
+		}
 		return null;
 	}
 
 	public String getPdfUrl()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		Element linkToPdf = document.getElementsByClass("vgw-pdf").first();
+		return linkToPdf == null ? null : linkToPdf.attr("href");
 	}
 
 	public List<String> getPageUrls()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		List<String> pageUrls = new ArrayList<>();
+		Elements elements = document.getElementsByClass("vgw-page");
+		for (Element element : elements)
+		{
+			pageUrls.add(element.attr("href"));
+		}
+		return Collections.unmodifiableList(pageUrls);
 	}
 
 	public Boolean getLyric()
 	{
-		// TODO Auto-generated method stub
+		for (Element element : document.select(".vgw-text, .vgw-pdf"))
+		{
+			if ("true".equals(element.attr("data-lyric")))
+			{
+				return Boolean.TRUE;
+			}
+		}
 		return null;
 	}
 
@@ -70,12 +88,32 @@ public class WebPage
 
 	public List<String> getTranslators()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return collectInvolved("translator");
 	}
 
 	public List<String> getAuthors()
 	{
-		return null;
+		return collectInvolved("author");
+	}
+
+	private List<String> collectInvolved(String role)
+	{
+		List<String> involved = new ArrayList<>();
+		Elements elements = document.getElementsByClass("vgw-" + role);
+		for (Element element : elements)
+		{
+			involved.add(element.text());
+		}
+
+		if (involved.isEmpty())
+		{
+			Element metaTag = document.select("meta[name=" + role + "]").first();
+			if (metaTag != null)
+			{
+				involved.add(metaTag.attr("content"));
+			}
+		}
+
+		return Collections.unmodifiableList(involved);
 	}
 }

@@ -1,6 +1,9 @@
 package de.ifcore.metis.grabber;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,14 +19,71 @@ public class WebPageTest
 	@Test
 	public void testGetId() throws IOException
 	{
-		WebPage webPage = webPageFor("gta.html");
-		assertEquals("cheat-1234", webPage.getId());
+		assertEquals("cheat-1234", webPage("gta.html").getId());
+		assertNull(webPage("pdf.html").getId());
 	}
 
-	private WebPage webPageFor(String filename) throws IOException
+	@Test
+	public void testGetLyric() throws IOException
+	{
+		assertEquals(Boolean.TRUE, webPage("lyric-text.html").getLyric());
+		assertEquals(Boolean.TRUE, webPage("lyric-pdf.html").getLyric());
+		assertNull(webPage("gta.html").getLyric());
+	}
+
+	@Test
+	public void testGetAuthors() throws IOException
+	{
+		assertEquals(1, webPage("gta.html").getAuthors().size());
+		assertEquals("René Meyer", webPage("gta.html").getAuthors().get(0));
+
+		assertEquals(2, webPage("author-override.html").getAuthors().size());
+		assertEquals("rm", webPage("author-override.html").getAuthors().get(0));
+
+		assertNotNull(webPage("text.html").getAuthors());
+		assertTrue(webPage("text.html").getAuthors().isEmpty());
+	}
+
+	@Test
+	public void testGetTranslators() throws IOException
+	{
+		assertEquals(3, webPage("translators.html").getTranslators().size());
+		assertEquals("rm", webPage("translators.html").getTranslators().get(0));
+
+		assertNotNull(webPage("text.html").getTranslators());
+		assertTrue(webPage("text.html").getTranslators().isEmpty());
+	}
+
+	@Test
+	public void testGetPdfUrl() throws IOException
+	{
+		assertEquals("assets/test.pdf", webPage("pdf.html").getPdfUrl());
+		assertNull(webPage("gta.html").getPdfUrl());
+	}
+
+	@Test
+	public void testGetPageUrls() throws IOException
+	{
+		assertEquals(3, webPage("pagination.html").getPageUrls().size());
+		assertEquals("page1.html", webPage("pagination.html").getPageUrls().get(0));
+
+		assertNotNull(webPage("text.html").getPageUrls());
+		assertTrue(webPage("text.html").getPageUrls().isEmpty());
+	}
+
+	@Test
+	public void testGetText() throws IOException
+	{
+		String testText = "GTA V Cheats von rm Cheats, während des Spiels einzugeben: asdasdj unendlich Leben 1234 unendlich Energie";
+		assertEquals(testText, webPage("text.html").getText());
+		assertEquals("bla", webPage("lyric-text.html").getText());
+		assertNull(webPage("pdf.html").getText());
+	}
+
+	private WebPage webPage(String filename) throws IOException
 	{
 		File file = getResource(filename);
-		Document document = Jsoup.parse(file, "UTF-8", "");
+		Document document = Jsoup.parse(file, null, "");
 		return new WebPage(null, document);
 	}
 
