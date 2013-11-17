@@ -15,8 +15,14 @@ public class PixelRequestTest
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testPixelRequestValidation()
+	public void testPixelRequestLocalhost()
 	{
 		new PixelRequest("http://localhost/test.html");
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testPixelRequestValidation()
+	{
+		new PixelRequest("xx");
 	}
 }
