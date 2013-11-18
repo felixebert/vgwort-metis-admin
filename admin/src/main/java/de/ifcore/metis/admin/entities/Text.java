@@ -15,6 +15,8 @@ import javax.persistence.OneToOne;
 
 import org.joda.time.DateTime;
 
+import de.ifcore.metis.grabber.GrabbedData;
+
 @Entity
 public class Text
 {
@@ -52,6 +54,14 @@ public class Text
 		this.author = author;
 		this.pixel = pixel;
 		this.createdAt = new Date();
+	}
+
+	public static Text forData(GrabbedData data, Pixel pixel)
+	{
+		String author = data.getAuthors().isEmpty() ? null : data.getAuthors().get(0);
+		Text text = new Text(data.getId(), author, pixel);
+		text.addUrl(new TextUrl(data.getSource(), text));
+		return text;
 	}
 
 	public String getId()
@@ -137,5 +147,11 @@ public class Text
 	public String toString()
 	{
 		return "Text [id=" + id + ", author=" + author + ", createdAt=" + createdAt + "]";
+	}
+
+	public Text updateWith(GrabbedData data)
+	{
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import de.ifcore.metis.admin.dao.TextUrlDao;
 import de.ifcore.metis.admin.entities.Pixel;
 import de.ifcore.metis.admin.entities.TextUrl;
-import de.ifcore.metis.admin.services.UrlAssigner;
+import de.ifcore.metis.admin.url.UrlScheduler;
 import de.ifcore.metis.pixelserver.PixelDigest;
 import de.ifcore.metis.pixelserver.PixelServer;
 
@@ -20,10 +20,10 @@ public class PixelServerImpl implements PixelServer
 	private static final Logger log = LoggerFactory.getLogger(PixelServerImpl.class);
 
 	private final TextUrlDao textUrlDao;
-	private final UrlAssigner urlAssigner;
+	private final UrlScheduler urlAssigner;
 
 	@Inject
-	public PixelServerImpl(TextUrlDao textUrlDao, UrlAssigner urlAssigner)
+	public PixelServerImpl(TextUrlDao textUrlDao, UrlScheduler urlAssigner)
 	{
 		this.textUrlDao = textUrlDao;
 		this.urlAssigner = urlAssigner;
