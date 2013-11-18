@@ -1,5 +1,6 @@
 package de.ifcore.metis.admin.entities;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -43,6 +44,7 @@ public class Author
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.cardNumber = cardNumber;
+		this.createdAt = new Date();
 	}
 
 	public Long getId()
@@ -68,6 +70,15 @@ public class Author
 	public List<AuthorAlias> getAliases()
 	{
 		return Collections.unmodifiableList(aliases);
+	}
+
+	public void addAlias(AuthorAlias alias)
+	{
+		if (aliases == null)
+		{
+			aliases = new ArrayList<>();
+		}
+		aliases.add(alias);
 	}
 
 	public DateTime getCreatedAt()

@@ -32,6 +32,7 @@ public class AuthorAlias
 	{
 		this.name = name;
 		this.author = author;
+		this.createdAt = new Date();
 	}
 
 	public String getName()

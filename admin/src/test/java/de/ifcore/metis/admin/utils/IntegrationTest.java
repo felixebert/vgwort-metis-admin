@@ -6,9 +6,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+import de.ifcore.metis.admin.dao.AuthorDao;
 import de.ifcore.metis.admin.dao.PixelDao;
 import de.ifcore.metis.admin.dao.TextDao;
 import de.ifcore.metis.admin.dao.TextUrlDao;
+import de.ifcore.metis.admin.entities.Author;
 import de.ifcore.metis.admin.entities.Pixel;
 import de.ifcore.metis.admin.entities.Text;
 
@@ -28,6 +30,9 @@ public abstract class IntegrationTest
 
 	@Autowired
 	protected TextUrlDao textUrlDao;
+
+	@Autowired
+	protected AuthorDao authorDao;
 
 	protected void flush()
 	{
@@ -54,5 +59,11 @@ public abstract class IntegrationTest
 		}
 		textDao.save(text);
 		return text;
+	}
+
+	protected Author persistAuthor(Author author)
+	{
+		authorDao.save(author);
+		return author;
 	}
 }
