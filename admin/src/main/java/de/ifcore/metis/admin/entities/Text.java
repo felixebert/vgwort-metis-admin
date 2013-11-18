@@ -15,6 +15,8 @@ import javax.persistence.OneToOne;
 
 import org.joda.time.DateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import de.ifcore.metis.grabber.GrabbedData;
 
 @Entity
@@ -31,6 +33,7 @@ public class Text
 	private Pixel pixel;
 
 	@OneToMany(mappedBy = "text", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private List<TextUrl> urls;
 
 	@Column(nullable = false, updatable = false)
