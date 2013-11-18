@@ -1,4 +1,4 @@
-package de.ifcore.metis.admin.services;
+package de.ifcore.metis.admin.pixel;
 
 import de.ifcore.metis.admin.entities.Pixel;
 

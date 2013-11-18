@@ -1,4 +1,4 @@
-package de.ifcore.metis.admin.services;
+package de.ifcore.metis.admin.pixel;
 
 import java.util.List;
 import java.util.Queue;

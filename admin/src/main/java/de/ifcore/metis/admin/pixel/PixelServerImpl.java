@@ -1,4 +1,4 @@
-package de.ifcore.metis.admin.impl;
+package de.ifcore.metis.admin.pixel;
 
 import javax.inject.Inject;
 import javax.inject.Named;

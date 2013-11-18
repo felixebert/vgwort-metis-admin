@@ -11,7 +11,7 @@ import de.ifcore.metis.admin.dao.TextDao;
 import de.ifcore.metis.admin.entities.Pixel;
 import de.ifcore.metis.admin.entities.Text;
 import de.ifcore.metis.admin.entities.TextUrl;
-import de.ifcore.metis.admin.services.PixelPool;
+import de.ifcore.metis.admin.pixel.PixelPool;
 import de.ifcore.metis.grabber.GrabbedData;
 
 @Named
