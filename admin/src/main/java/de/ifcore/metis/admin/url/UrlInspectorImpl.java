@@ -30,6 +30,7 @@ public class UrlInspectorImpl implements UrlInspector
 	}
 
 	@Override
+	@Transactional
 	public void inspect(String url)
 	{
 		GrabbedData data = grabber.grab(url);
@@ -37,7 +38,7 @@ public class UrlInspectorImpl implements UrlInspector
 	}
 
 	@Override
-	@Transactional(readOnly = true)
+	@Transactional
 	public void inspect(GrabbedData data)
 	{
 		TextUrl textUrl = textUrlDao.get(data.getSource());

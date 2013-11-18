@@ -27,7 +27,7 @@ public class PixelerSchedulerImpl implements PixelerScheduler
 
 	@Override
 	@Scheduled(fixedDelay = 5 * 60 * 1000)
-	@Transactional(readOnly = true)
+	@Transactional
 	public void execute()
 	{
 		List<Text> texts = textDao.getTextsWithoutPixel();
