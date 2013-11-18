@@ -35,7 +35,7 @@ public class WebPage
 		builder.setPageUrls(getPageUrls());
 		builder.setPdfUrl(getPdfUrl());
 		builder.setText(getText());
-		builder.setTitle(getText());
+		builder.setTitle(getTitle());
 		builder.setTranslators(getTranslators());
 		builder.setAuthors(getAuthors());
 		return builder.build();
@@ -44,6 +44,21 @@ public class WebPage
 	public String getText()
 	{
 		Element element = document.select(".vgw-text").first();
+		if (element != null)
+		{
+			return element.text();
+		}
+		return null;
+	}
+
+	public String getTitle()
+	{
+		Element element = document.select(".vgw-title").first();
+		if (element != null)
+		{
+			return element.text();
+		}
+		element = document.getElementsByTag("title").first();
 		if (element != null)
 		{
 			return element.text();

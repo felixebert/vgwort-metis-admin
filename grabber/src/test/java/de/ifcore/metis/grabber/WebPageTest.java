@@ -24,6 +24,14 @@ public class WebPageTest
 	}
 
 	@Test
+	public void testGetTitle() throws IOException
+	{
+		assertEquals("Grand Theft Auto - San Andreas - Cheats für PC", webPage("gta.html").getTitle());
+		assertEquals("Richtiger Titel", webPage("title-override.html").getTitle());
+		assertNull(webPage("pdf.html").getTitle());
+	}
+
+	@Test
 	public void testGetLyric() throws IOException
 	{
 		assertEquals(Boolean.TRUE, webPage("lyric-text.html").getLyric());
