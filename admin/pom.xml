@@ -23,13 +23,25 @@
 				<metis.client.hostname>tom-test.vgwort.de</metis.client.hostname>
 				<metis.client.pixel.poolSize>2</metis.client.pixel.poolSize>
 
-				<hibernate.dialect>org.hibernate.dialect.MySQL5InnoDBDialect</hibernate.dialect>
+				<hibernate.dialect>org.hibernate.dialect.H2Dialect</hibernate.dialect>
 				<hibernate.hbm2ddl.auto>create</hibernate.hbm2ddl.auto>
 			</properties>
 
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
+		</profile>
+		<profile>
+			<id>ref</id>
+			<properties>
+				<metis.client.hostname>tom-test.vgwort.de</metis.client.hostname>
+				<metis.client.pixel.poolSize>2</metis.client.pixel.poolSize>
+
+				<hibernate.dialect>org.hibernate.dialect.MySQL5InnoDBDialect</hibernate.dialect>
+				<hibernate.hbm2ddl.auto>update</hibernate.hbm2ddl.auto>
+
+				<spring.profiles.active>ref</spring.profiles.active>
+			</properties>
 		</profile>
 		<profile>
 			<id>prd</id>
