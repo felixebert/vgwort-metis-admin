@@ -12,7 +12,7 @@ import de.ifcore.metis.admin.dao.AuthorDao;
 import de.ifcore.metis.admin.entities.Author;
 
 @Repository
-public class HibernateAuthorDao extends HibernateAbstractEntityDao<Author, String> implements AuthorDao
+public class HibernateAuthorDao extends HibernateAbstractEntityDao<Author, Long> implements AuthorDao
 {
 	@Inject
 	public HibernateAuthorDao(SessionFactory sessionFactory)

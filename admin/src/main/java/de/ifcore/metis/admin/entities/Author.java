@@ -14,6 +14,8 @@ import javax.persistence.OneToMany;
 
 import org.joda.time.DateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Author
 {
@@ -33,6 +35,7 @@ public class Author
 	private Date createdAt;
 
 	@OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private List<AuthorAlias> aliases;
 
 	Author()
@@ -84,6 +87,21 @@ public class Author
 	public DateTime getCreatedAt()
 	{
 		return new DateTime(createdAt);
+	}
+
+	public void setFirstname(String firstname)
+	{
+		this.firstname = firstname;
+	}
+
+	public void setLastname(String lastname)
+	{
+		this.lastname = lastname;
+	}
+
+	public void setCardNumber(String cardNumber)
+	{
+		this.cardNumber = cardNumber;
 	}
 
 	@Override
