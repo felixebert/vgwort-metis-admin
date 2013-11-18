@@ -42,7 +42,9 @@ public class UrlServiceImpl implements UrlService
 		else
 		{
 			text.updateWith(data);
-			text.addUrl(data.getSource());
+			TextUrl textUrl = new TextUrl(data.getSource(), text);
+			text.addUrl(textUrl);
+			textUrlDao.save(textUrl);
 			textDao.update(text);
 			log.trace("registered new url (on an existing text) - " + data.getSource());
 		}

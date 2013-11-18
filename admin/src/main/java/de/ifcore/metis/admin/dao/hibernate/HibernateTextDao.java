@@ -24,7 +24,7 @@ public class HibernateTextDao extends HibernateAbstractEntityDao<Text, String> i
 	@Override
 	public List<Text> getTextsWithoutPixel()
 	{
-		String hql = "FROM Text WHERE t.pixel IS NULL";
+		String hql = "FROM Text WHERE pixel IS NULL";
 		Query query = getSession().createQuery(hql);
 		return query.list();
 	}

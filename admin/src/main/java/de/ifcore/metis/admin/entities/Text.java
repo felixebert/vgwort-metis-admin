@@ -74,7 +74,7 @@ public class Text
 
 	public void setPixel(Pixel pixel)
 	{
-		if (pixel != null)
+		if (this.pixel != null)
 		{
 			throw new IllegalStateException();
 		}
@@ -104,11 +104,6 @@ public class Text
 	public List<TextUrl> getUrls()
 	{
 		return Collections.unmodifiableList(urls);
-	}
-
-	public void addUrl(String url)
-	{
-		addUrl(new TextUrl(url, this));
 	}
 
 	public void addUrl(TextUrl url)

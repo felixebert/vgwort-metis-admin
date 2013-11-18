@@ -1,5 +1,6 @@
 package de.ifcore.metis.admin.dao.hibernate;
 
+import static de.ifcore.metis.admin.utils.EntityTestUtils.mockPixel;
 import static de.ifcore.metis.admin.utils.EntityTestUtils.mockText;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -35,13 +36,33 @@ public class HibernateTextDaoTest extends IntegrationTest
 		flushAndClear();
 
 		text = textDao.get(text.getId());
-		assertEquals(0, text.getUrls().size());
-
-		text.addUrl(new TextUrl("http://localhost/test", text));
+		TextUrl textUrl = new TextUrl("http://localhost/test", text);
+		text.addUrl(textUrl);
+		textUrlDao.save(textUrl);
 		textDao.update(text);
 		flushAndClear();
 
 		Text persistedText = textDao.get(text.getId());
 		assertEquals(1, persistedText.getUrls().size());
+	}
+
+	@Test
+	public void shouldListTextsWithoutPixel()
+	{
+		persistText(mockText());
+		persistText(mockText());
+		persistText(mockText(mockPixel()));
+		flushAndClear();
+
+		assertEquals(2, textDao.getTextsWithoutPixel().size());
+	}
+
+	@Test
+	public void shouldListTextsWithoutPixelAndWithoutReturningNull()
+	{
+		persistText(mockText(mockPixel()));
+		flushAndClear();
+
+		assertEquals(0, textDao.getTextsWithoutPixel().size());
 	}
 }
