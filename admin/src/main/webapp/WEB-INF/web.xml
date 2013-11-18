@@ -45,6 +45,16 @@
 		<filter-name>hiddenHttpMethodFilter</filter-name>
 		<servlet-name>dispatcher</servlet-name>
 	</filter-mapping>
+	
+	<!-- CORS -->
+	<filter>
+		<filter-name>corsFilter</filter-name>
+		<filter-class>de.ifcore.metis.admin.filter.CorsFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>corsFilter</filter-name>
+		<servlet-name>dispatcher</servlet-name>
+	</filter-mapping>
 
 	<!-- dispatcher -->
 	<servlet>
