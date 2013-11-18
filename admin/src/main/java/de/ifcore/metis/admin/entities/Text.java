@@ -27,7 +27,7 @@ public class Text
 	private String author;
 
 	@OneToOne
-	@JoinColumn(nullable = false, updatable = false, unique = true)
+	@JoinColumn(unique = true)
 	private Pixel pixel;
 
 	@OneToMany(mappedBy = "text", cascade = CascadeType.ALL)
@@ -48,20 +48,37 @@ public class Text
 	{
 	}
 
-	public Text(String id, String author, Pixel pixel)
+	public Text(String id, String author)
 	{
 		this.id = id;
 		this.author = author;
-		this.pixel = pixel;
 		this.createdAt = new Date();
 	}
 
-	public static Text forData(GrabbedData data, Pixel pixel)
+	public static Text forData(GrabbedData data)
 	{
-		String author = data.getAuthors().isEmpty() ? null : data.getAuthors().get(0);
-		Text text = new Text(data.getId(), author, pixel);
+		Text text = new Text(data.getId(), extractMainAuthor(data));
 		text.addUrl(new TextUrl(data.getSource(), text));
 		return text;
+	}
+
+	private static String extractMainAuthor(GrabbedData data)
+	{
+		return data.getAuthors().isEmpty() ? null : data.getAuthors().get(0);
+	}
+
+	public void updateWith(GrabbedData data)
+	{
+		this.author = extractMainAuthor(data);
+	}
+
+	public void setPixel(Pixel pixel)
+	{
+		if (pixel != null)
+		{
+			throw new IllegalStateException();
+		}
+		this.pixel = pixel;
 	}
 
 	public String getId()
@@ -87,6 +104,11 @@ public class Text
 	public List<TextUrl> getUrls()
 	{
 		return Collections.unmodifiableList(urls);
+	}
+
+	public void addUrl(String url)
+	{
+		addUrl(new TextUrl(url, this));
 	}
 
 	public void addUrl(TextUrl url)
@@ -147,11 +169,5 @@ public class Text
 	public String toString()
 	{
 		return "Text [id=" + id + ", author=" + author + ", createdAt=" + createdAt + "]";
-	}
-
-	public Text updateWith(GrabbedData data)
-	{
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

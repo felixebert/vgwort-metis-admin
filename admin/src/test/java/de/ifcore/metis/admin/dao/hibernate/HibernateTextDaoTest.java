@@ -1,6 +1,5 @@
 package de.ifcore.metis.admin.dao.hibernate;
 
-import static de.ifcore.metis.admin.utils.EntityTestUtils.mockPixel;
 import static de.ifcore.metis.admin.utils.EntityTestUtils.mockText;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -9,7 +8,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import de.ifcore.metis.admin.entities.Pixel;
 import de.ifcore.metis.admin.entities.Text;
 import de.ifcore.metis.admin.entities.TextUrl;
 import de.ifcore.metis.admin.utils.IntegrationTest;
@@ -20,10 +18,7 @@ public class HibernateTextDaoTest extends IntegrationTest
 	@Test
 	public void shouldPersistTextUrls()
 	{
-		Pixel pixel = persistPixel(mockPixel());
-		flushAndClear();
-
-		Text text = new Text("cheat-1", null, pixel);
+		Text text = new Text("cheat-1", null);
 		text.addUrl(new TextUrl("http://localhost", text));
 		textDao.save(text);
 		flushAndClear();

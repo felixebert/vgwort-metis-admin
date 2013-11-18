@@ -44,7 +44,10 @@ public abstract class IntegrationTest
 
 	protected Text persistText(Text text)
 	{
-		pixelDao.save(text.getPixel());
+		if (text.getPixel() != null)
+		{
+			pixelDao.save(text.getPixel());
+		}
 		textDao.save(text);
 		return text;
 	}

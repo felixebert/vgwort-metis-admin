@@ -19,12 +19,14 @@ public class EntityTestUtils
 
 	public static Text mockText()
 	{
-		return mockText(mockPixel());
+		return new Text(rnd(10), rnd(10));
 	}
 
 	public static Text mockText(Pixel pixel)
 	{
-		return new Text(rnd(10), rnd(10), pixel);
+		Text text = new Text(rnd(10), rnd(10));
+		text.setPixel(pixel);
+		return text;
 	}
 
 	private static String rnd(int count)

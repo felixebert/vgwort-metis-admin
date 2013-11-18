@@ -8,10 +8,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 
 import de.ifcore.metis.admin.dao.TextDao;
-import de.ifcore.metis.admin.entities.Pixel;
+import de.ifcore.metis.admin.dao.TextUrlDao;
 import de.ifcore.metis.admin.entities.Text;
 import de.ifcore.metis.admin.entities.TextUrl;
-import de.ifcore.metis.admin.pixel.PixelPool;
 import de.ifcore.metis.grabber.GrabbedData;
 
 @Named
@@ -20,13 +19,13 @@ public class UrlServiceImpl implements UrlService
 	private static final Logger log = LoggerFactory.getLogger(UrlServiceImpl.class);
 
 	private final TextDao textDao;
-	private final PixelPool pixelPool;
+	private final TextUrlDao textUrlDao;
 
 	@Inject
-	public UrlServiceImpl(TextDao textDao, PixelPool pixelPool)
+	public UrlServiceImpl(TextDao textDao, TextUrlDao textUrlDao)
 	{
 		this.textDao = textDao;
-		this.pixelPool = pixelPool;
+		this.textUrlDao = textUrlDao;
 	}
 
 	@Override
@@ -36,20 +35,16 @@ public class UrlServiceImpl implements UrlService
 		Text text = textDao.get(data.getId());
 		if (text == null)
 		{
-			Pixel pixel = pixelPool.poll();
-			if (pixel == null)
-			{
-				log.trace("couldn't assign a pixel to text " + data.getId());
-			}
-			else
-			{
-				log.trace("assigning a pixel to text " + data.getId());
-				textDao.save(Text.forData(data, pixel));
-			}
+			text = Text.forData(data);
+			textDao.save(text);
+			log.trace("registered new url and new text - " + data.getId() + " - " + data.getSource());
 		}
 		else
 		{
-			textDao.update(text.updateWith(data));
+			text.updateWith(data);
+			text.addUrl(data.getSource());
+			textDao.update(text);
+			log.trace("registered new url (on an existing text) - " + data.getSource());
 		}
 	}
 
@@ -57,14 +52,18 @@ public class UrlServiceImpl implements UrlService
 	@Transactional
 	public void update(TextUrl url, GrabbedData data)
 	{
-		if (!url.getText().getId().equals(data.getId()))
+		Text text = url.getText();
+		if (!text.getId().equals(data.getId()))
 		{
-			// update text (remove textUrl)
-			// then METHOD 1
+			delete(url);
+			register(data);
+			log.trace("transfered url " + data.getSource());
 		}
 		else
 		{
-			// update text
+			text.updateWith(data);
+			textDao.update(text);
+			log.trace("updated url " + data.getSource());
 		}
 	}
 
@@ -72,8 +71,7 @@ public class UrlServiceImpl implements UrlService
 	@Transactional
 	public void delete(TextUrl url)
 	{
-		// TODO Auto-generated method stub
-
+		textUrlDao.delete(url);
+		log.trace("deleted url " + url.getUrl());
 	}
-
 }

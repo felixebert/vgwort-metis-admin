@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 
 import de.ifcore.metis.admin.dao.PixelDao;
+import de.ifcore.metis.admin.dao.TextDao;
 import de.ifcore.metis.admin.entities.Pixel;
 import de.ifcore.metis.pixelfetcher.PixelStorage;
 
@@ -19,13 +20,13 @@ public class PixelStorageImpl implements PixelStorage
 	private static final Logger log = LoggerFactory.getLogger(PixelStorageImpl.class);
 
 	private final PixelDao pixelDao;
-	private final PixelPool pixelPool;
+	private final TextDao textDao;
 
 	@Inject
-	public PixelStorageImpl(PixelDao pixelDao, PixelPool pixelPool)
+	public PixelStorageImpl(PixelDao pixelDao, TextDao textDao)
 	{
 		this.pixelDao = pixelDao;
-		this.pixelPool = pixelPool;
+		this.textDao = textDao;
 	}
 
 	@Override
@@ -42,8 +43,11 @@ public class PixelStorageImpl implements PixelStorage
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public int getNumberOfUnusedPixels()
 	{
-		return pixelPool.size();
+		long pixels = pixelDao.getCount();
+		long linkedPixels = textDao.getCount();
+		return (int)(pixels - linkedPixels);
 	}
 }

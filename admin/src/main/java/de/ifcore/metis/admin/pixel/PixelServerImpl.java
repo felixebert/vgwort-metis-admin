@@ -35,15 +35,15 @@ public class PixelServerImpl implements PixelServer
 	{
 		TextUrl textUrl = textUrlDao.get(url);
 
-		if (textUrl == null)
+		if (textUrl == null || textUrl.getText().getPixel() == null)
 		{
 			log.trace("no pixel assigned to url " + url);
 			return null;
 		}
 		else
 		{
-			log.trace("returning assigned pixel for url " + url);
 			Pixel pixelEntity = textUrl.getText().getPixel();
+			log.trace("returning assigned pixel for url " + url);
 			return new PixelDigest(pixelEntity.getHost(), pixelEntity.getPublicId());
 		}
 	}

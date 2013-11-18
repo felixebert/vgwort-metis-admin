@@ -5,6 +5,7 @@ import javax.inject.Named;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.transaction.annotation.Transactional;
 
 import de.ifcore.metis.admin.dao.TextUrlDao;
 import de.ifcore.metis.admin.entities.TextUrl;
@@ -36,6 +37,7 @@ public class UrlInspectorImpl implements UrlInspector
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public void inspect(GrabbedData data)
 	{
 		TextUrl textUrl = textUrlDao.get(data.getSource());
