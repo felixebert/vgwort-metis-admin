@@ -28,4 +28,14 @@ public class HibernateTextDao extends HibernateAbstractEntityDao<Text, String> i
 		Query query = getSession().createQuery(hql);
 		return query.list();
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Text> getLatest()
+	{
+		String hql = "FROM Text ORDER BY createdAt DESC";
+		Query query = getSession().createQuery(hql);
+		query.setMaxResults(30);
+		return query.list();
+	}
 }

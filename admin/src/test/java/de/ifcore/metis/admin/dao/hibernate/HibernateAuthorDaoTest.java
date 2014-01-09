@@ -29,4 +29,16 @@ public class HibernateAuthorDaoTest extends IntegrationTest
 		assertEquals(1, authorNames.size());
 		assertEquals("kt", authorNames.get(0));
 	}
+
+	@Test
+	public void shouldListUnknownAuthorNamesDistinct()
+	{
+		persistText(mockText("rm"));
+		persistText(mockText("rm"));
+		flushAndClear();
+
+		List<String> authorNames = authorDao.getUnknownAuthorNames();
+		assertEquals(1, authorNames.size());
+		assertEquals("rm", authorNames.get(0));
+	}
 }

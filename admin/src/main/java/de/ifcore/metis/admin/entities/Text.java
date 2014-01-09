@@ -43,6 +43,7 @@ public class Text
 
 	private Date submissionAttemptedAt;
 
+	@Column(columnDefinition = "BIT")
 	private boolean submissionSuspended;
 
 	private String submissionError;

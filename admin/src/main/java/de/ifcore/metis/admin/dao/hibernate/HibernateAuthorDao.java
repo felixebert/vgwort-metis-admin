@@ -24,7 +24,7 @@ public class HibernateAuthorDao extends HibernateAbstractEntityDao<Author, Long>
 	@Override
 	public List<String> getUnknownAuthorNames()
 	{
-		String hql = "SELECT t.author FROM Text t WHERE NOT EXISTS (FROM AuthorAlias aa WHERE aa.name = t.author)";
+		String hql = "SELECT DISTINCT t.author FROM Text t WHERE NOT EXISTS (FROM AuthorAlias aa WHERE aa.name = t.author)";
 		Query query = getSession().createQuery(hql);
 		return query.list();
 	}

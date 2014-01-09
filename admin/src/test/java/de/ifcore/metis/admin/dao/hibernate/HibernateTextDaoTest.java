@@ -65,4 +65,13 @@ public class HibernateTextDaoTest extends IntegrationTest
 
 		assertEquals(0, textDao.getTextsWithoutPixel().size());
 	}
+
+	@Test
+	public void shouldListLatest()
+	{
+		persistText(mockText(mockPixel()));
+		flushAndClear();
+
+		assertEquals(1, textDao.getLatest().size());
+	}
 }

@@ -25,6 +25,6 @@ public class TextListServiceImpl implements TextListService
 	@Transactional(readOnly = true)
 	public Collection<Text> getTexts()
 	{
-		return textDao.getAll();
+		return textDao.getLatest();
 	}
 }

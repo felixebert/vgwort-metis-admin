@@ -7,4 +7,6 @@ import de.ifcore.metis.admin.entities.Text;
 public interface TextDao extends EntityCruDao<Text, String>
 {
 	public List<Text> getTextsWithoutPixel();
+
+	public List<Text> getLatest();
 }
