@@ -10,7 +10,7 @@ public class PixelStatistic
 	{
 		this.numberOfPixels = numberOfPixels;
 		this.numberOfLinkedPixels = numberOfLinkedPixels;
-		this.numberOfUnlinkedPixels = numberOfPixels - numberOfLinkedPixels;
+		this.numberOfUnlinkedPixels = Math.max(0, numberOfPixels - numberOfLinkedPixels);
 	}
 
 	public long getNumberOfPixels()
