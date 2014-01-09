@@ -9,7 +9,7 @@ public class PixelRequestTest
 	@Test
 	public void testPixelRequest()
 	{
-		String url = "http://mogelpower.de/cheats/GTA-Cheats-PC.html";
+		String url = "http://www.mogelpower.de/cheats/GTA-Cheats-PC.html";
 		PixelRequest pixelRequest = new PixelRequest(url);
 		assertEquals(url, pixelRequest.getUrl());
 	}

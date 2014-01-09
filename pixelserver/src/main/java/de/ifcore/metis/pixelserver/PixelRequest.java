@@ -1,7 +1,5 @@
 package de.ifcore.metis.pixelserver;
 
-import org.apache.commons.validator.routines.UrlValidator;
-
 /**
  * Generic pixel request
  * 
@@ -13,7 +11,7 @@ public class PixelRequest
 
 	public PixelRequest(String url)
 	{
-		if (!UrlValidator.getInstance().isValid(url))
+		if (!url.startsWith("http://www.mogelpower.de"))
 		{
 			throw new IllegalArgumentException(url);
 		}
